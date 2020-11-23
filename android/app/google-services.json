@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "456351021764",
+    "firebase_url": "https://lojavirtual-7051d.firebaseio.com",
+    "project_id": "lojavirtual-7051d",
+    "storage_bucket": "lojavirtual-7051d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456351021764:android:5d7bb06379aae30a74a791",
+        "android_client_info": {
+          "package_name": "com.higino.loja_virtual"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "456351021764-fuui1v5r0uvc6o8iuv0q8d818d4vir4p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC65gahujZJfAwfFZ6cV_P09k5377i8zYE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "456351021764-fuui1v5r0uvc6o8iuv0q8d818d4vir4p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
