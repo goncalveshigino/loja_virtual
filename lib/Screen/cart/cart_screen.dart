@@ -1,4 +1,5 @@
  import 'package:flutter/material.dart';
+import 'package:loja_virtual/common/price_card.dart';
 import 'package:loja_virtual/models/cart_manager.dart';
 import 'package:provider/provider.dart';
 
@@ -14,10 +15,20 @@ import 'components/cart_tile.dart';
         ),
         body: Consumer<CartManager>(
           builder: (_, cartManager, __){
-            return Column(
-              children: cartManager.items.map(
-                (cartProduct) => CartTile(cartProduct) 
-              ).toList( ),
+            return ListView(
+              children: <Widget>[
+               Column(
+                children: cartManager.items.map(
+                  (cartProduct) => CartTile(cartProduct) 
+                ).toList(),
+              ),
+              PriceCard(
+                buttonText: 'Continuar para Entregar',
+                onPressed: cartManager.isCartValid ? (){
+
+                }:null,
+              )
+              ],
             );
           }
         ),
