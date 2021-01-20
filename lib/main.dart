@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:loja_virtual/Screen/signup/signup_screen.dart';
+import 'package:loja_virtual/models/admin_user_manager.dart';
 import 'package:loja_virtual/models/cart_manager.dart';
 import 'package:loja_virtual/models/product.dart';
 import 'package:loja_virtual/models/product_manager.dart';
@@ -11,6 +12,7 @@ import 'Screen/base/base_screen.dart';
 import 'Screen/cart/cart_screen.dart';
 import 'Screen/login/login_screen.dart';
 import 'Screen/product/product_tela.dart';
+import 'models/home_manager.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,12 +33,23 @@ class MyApp extends StatelessWidget {
           create: (_) => ProductManager(),
           lazy: false,
         ),
+          Provider(
+            create:(_) => HomeManager(),
+            lazy: false
+          ),
           ChangeNotifierProxyProvider<UserManager, CartManager>(
           create: (_) => CartManager(),
           lazy: false,
           update:  (_, userManager, cartManager) => 
           cartManager..updateUser(userManager),
         ),
+
+        ChangeNotifierProxyProvider<UserManager,AdminUserManager>(
+          create: (_) => AdminUserManager(),
+          lazy: false, 
+          update: (_, userManager, adminUserManager) =>
+          adminUserManager..updateUser(userManager),
+        )
         
       ],
           child: MaterialApp(

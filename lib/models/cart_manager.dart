@@ -60,6 +60,7 @@ class CartManager extends ChangeNotifier {
       final cartProduct = items[i];
       if (cartProduct.quantity == 0) {
         removeOfCart(cartProduct);
+        i--;
         continue;
       }
       productPrice += cartProduct.totalPrice;
@@ -76,7 +77,6 @@ class CartManager extends ChangeNotifier {
   }
 
   // Verificando o carrinho
-
   bool get isCartValid {
     for (final cartProduct in items) {
       if (!cartProduct.hasStock) return false;
