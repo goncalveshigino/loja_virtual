@@ -72,11 +72,19 @@ class UserManager extends ChangeNotifier {
   Future<void> _loadCurrentUser({FirebaseUser firebaseUser}) async {
     final FirebaseUser currentUser = firebaseUser ?? await auth.currentUser();
     if (currentUser != null) {
+      
       final DocumentSnapshot docUser =
           await firestore.collection('users').document(currentUser.uid).get();
       user = User.fromDocument(docUser);
-      print(user.name);
+
+  
+    final docAdmin = await firestore.collection('admins').document(user.id).get();
+      if(docAdmin.exists){
+        user.admin = true;
+      }
       notifyListeners();
     }
   }
+
+  bool get adminEnabled => user != null && user.admin;
 }

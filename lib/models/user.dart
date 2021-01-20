@@ -13,6 +13,7 @@ class User {
   String name;
   String email;
   String password;
+  bool admin = false;
 
   String confirmarPassword;
 

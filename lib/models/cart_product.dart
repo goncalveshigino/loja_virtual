@@ -50,7 +50,7 @@ class CartProduct extends ChangeNotifier {
   }
 
   //Preco total
-  num get totalPrice => unitPrice * quantity;
+  num get totalPrice => quantity * unitPrice;
 
   
   Map<String, dynamic> toCartItemMap() {
