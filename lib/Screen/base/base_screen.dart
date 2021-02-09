@@ -28,7 +28,6 @@ class BaseScreen extends StatelessWidget {
                     HomeScreen(),
                     ProductsScreen(),
                     Scaffold(
-
                       drawer: CustomDrawer(),
                       appBar: AppBar(
                         title: const Text('Meus Pedidos'),
