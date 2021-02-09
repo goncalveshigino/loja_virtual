@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loja_virtual/Screen/edit_product/edit_product_screen.dart';
 
 import 'package:loja_virtual/Screen/signup/signup_screen.dart';
 import 'package:loja_virtual/models/admin_user_manager.dart';
@@ -62,27 +63,40 @@ class MyApp extends StatelessWidget {
                 elevation: 0,
               ),
               visualDensity: VisualDensity.adaptivePlatformDensity),
-          initialRoute: '/base',
+              initialRoute: '/base',
+
           onGenerateRoute: (settings) {
             switch (settings.name) {
               case '/base':
                 return MaterialPageRoute(builder: (_) => BaseScreen());
+
               case '/signup':
                 return MaterialPageRoute(builder: (_) => SignUpScreen());
+
               case '/login':
                 return MaterialPageRoute(
                   builder: (_) => LoginScreen()
                 );
+
               case '/cart':
                 return MaterialPageRoute(
                   builder: (_) => CartScreen()
                 );
+
+                case '/edit_product':
+                return MaterialPageRoute(
+                  builder: (_) => EditProductScreen(
+                    settings.arguments as Product
+                  )
+                );
+
                   case '/product':
                 return MaterialPageRoute(
                   builder: (_) => ProductTela(
                     settings.arguments as Product
                    )
                 );
+                
               default:
                 return MaterialPageRoute(builder: (_) => BaseScreen());
             }
