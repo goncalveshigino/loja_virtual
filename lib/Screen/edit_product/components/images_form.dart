@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/Screen/edit_product/components/ImageSourceSheet.dart';
 import 'package:loja_virtual/models/product.dart';
@@ -8,6 +9,7 @@ import 'package:loja_virtual/models/product.dart';
 class ImagesForm extends StatelessWidget {
 
   const ImagesForm(this.product);
+
   final Product product;
 
   @override
@@ -27,6 +29,7 @@ class ImagesForm extends StatelessWidget {
                         Image.network(image, fit: BoxFit.cover,)
                    else
                        Image.file(image as File, fit:  BoxFit.cover,),
+
                   //Para alinhar em qualquer posicao
                   Align(
                     alignment: Alignment.topRight,
@@ -42,17 +45,25 @@ class ImagesForm extends StatelessWidget {
                 ],
               );
             }).toList()..add(
-              Container(
+              Material(
                 color: Colors.grey[100],
                 child: IconButton(
-                  icon: Icon(Icons.add_a_photo_outlined),
+                  icon: Icon(Icons.add_a_photo),
                   color: Theme.of(context).primaryColor,
                   iconSize: 50,
                   onPressed: (){
-                     showModalBottomSheet(
-                       context: context,
-                       builder: (_) => ImageSourceSheet()
-                     );
+                    
+                    if(Platform.isAndroid){
+                       showModalBottomSheet(
+                          context: context,
+                          builder: (_) => ImageSourceSheet()
+                      );
+                    }else {
+                      showCupertinoModalPopup(
+                          context: context,
+                          builder: (_) => ImageSourceSheet()
+                      );
+                    }
                   },
                 ),
               )
