@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImageSourceSheet extends StatelessWidget {
@@ -12,8 +13,33 @@ class ImageSourceSheet extends StatelessWidget {
  
   final ImagePicker picker = ImagePicker();
 
+
   @override
   Widget build(BuildContext context) {
+
+     //Editar Image apos pegar da galeira ou  capturado pela camera
+      Future<void> editImage(String path) async{
+       final File croppedFile = await ImageCropper.cropImage(
+          sourcePath: path,
+          aspectRatio: const CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
+          androidUiSettings: AndroidUiSettings(
+            toolbarTitle: 'Editar Imagem',
+            toolbarColor: Theme.of(context).primaryColor,
+            toolbarWidgetColor: Colors.white
+          ),
+          iosUiSettings: const IOSUiSettings(
+            title: 'Editar Imagem',
+            cancelButtonTitle: 'Cancelar',
+            doneButtonTitle: 'Concluir'
+          )
+        );
+        //Verificar
+        if(croppedFile != null){
+          onImageSeleted(croppedFile);
+        }
+      }
+
+
     if (Platform.isAndroid)
       return BottomSheet(
         onClosing: () {},
@@ -26,7 +52,7 @@ class ImageSourceSheet extends StatelessWidget {
               onPressed: () async {
                 final PickedFile file =
                     await picker.getImage(source: ImageSource.camera);
-               onImageSeleted( File(file.path));
+                      editImage(file.path);
               },
             ),
             FlatButton(
@@ -34,7 +60,7 @@ class ImageSourceSheet extends StatelessWidget {
               onPressed: () async {
                 final PickedFile file =
                     await picker.getImage(source: ImageSource.gallery);
-                     onImageSeleted( File(file.path));
+                 editImage(file.path);
               },
             )
           ],
@@ -51,11 +77,19 @@ class ImageSourceSheet extends StatelessWidget {
         actions: <Widget>[
           CupertinoActionSheetAction(
             isDefaultAction: true,
-            onPressed: () {},
+         onPressed: () async {
+                final PickedFile file =
+                    await picker.getImage(source: ImageSource.camera);
+                 editImage(file.path);
+              },
             child: const Text('Camera'),
           ),
           CupertinoActionSheetAction(
-            onPressed: () {},
+        onPressed: () async {
+                final PickedFile file =
+                    await picker.getImage(source: ImageSource.gallery);
+                 editImage(file.path);
+              },
             child: const Text('Galeria '),
           )
         ],
