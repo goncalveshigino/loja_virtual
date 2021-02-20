@@ -85,7 +85,7 @@ class ProductTela extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top:5.0),
                       child: Text(
-                        'Kz\$ 200.24',
+                        'Kz\$ ${product.basePrice.toStringAsFixed(2)}',
                         style: TextStyle(
                           fontSize: 22.0,
                           fontWeight: FontWeight.bold,
