@@ -17,10 +17,10 @@ class CustomIconButton extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           child: Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: const EdgeInsets.all(5),
             child: Icon(
               iconData,
-              color: color,
+              color: onTap != null ? color: Colors.grey[400],
             ),
           ),
         ),
