@@ -27,8 +27,14 @@ class EditItemSize extends StatelessWidget {
              initialValue: size.name,
              decoration: const InputDecoration(
                labelText: 'Título',
-               isDense: true
+               isDense: true,
              ),
+             validator: (name){
+               if(name.isEmpty)
+                  return 'Invalido';
+              return null;
+             },
+             onChanged: (name) => size.name = name,
            ),
          ),
 
@@ -43,6 +49,12 @@ class EditItemSize extends StatelessWidget {
                isDense: true,
              ),
              keyboardType: TextInputType.number,
+             validator: (stock){
+                if(int.tryParse(stock) == null)
+                    return 'Invalido';
+                return null;
+             },
+             onChanged: (stock) => size.stock = int.tryParse(stock),
            ),
          ),
 
@@ -62,6 +74,12 @@ class EditItemSize extends StatelessWidget {
                )
              ),
              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+             validator: (price){
+               if(num.tryParse(price) == null)
+                    return 'Inválido';
+                 return null;
+             },
+             onChanged: (price) => size.price = num.tryParse(price),
            ),
          ),
 
