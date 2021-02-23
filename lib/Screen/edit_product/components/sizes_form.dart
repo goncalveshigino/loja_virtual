@@ -66,6 +66,18 @@ class SizesForm extends StatelessWidget {
                     );
                   }).toList(),
                 ),
+
+                if(state.hasError)
+                   Container(
+                     alignment: Alignment.centerLeft,
+                    child: Text(
+                      state.errorText,
+                      style: const TextStyle(
+                      color: Colors.red,
+                      fontSize: 12,
+                   )
+                  )
+                )
               ],
             );
           },

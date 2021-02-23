@@ -22,7 +22,7 @@ class EditItemSize extends StatelessWidget {
        children: <Widget>[
 
          Expanded(
-           flex: 25,
+           flex: 30,
            child: TextFormField(
              initialValue: size.name,
              decoration: const InputDecoration(
@@ -41,7 +41,7 @@ class EditItemSize extends StatelessWidget {
          const SizedBox(width: 4,),
 
          Expanded(
-           flex: 25,
+           flex: 30,
            child: TextFormField(
              initialValue: size.stock?.toString(),
              decoration: const InputDecoration(
@@ -61,7 +61,7 @@ class EditItemSize extends StatelessWidget {
          const SizedBox(width: 4,),
 
          Expanded(
-           flex: 50,
+           flex: 40,
            child: TextFormField(
              initialValue: size.price?.toStringAsFixed(2),
              decoration: const InputDecoration(
