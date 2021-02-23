@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:loja_virtual/Screen/edit_product/components/images_form.dart';
 import 'package:loja_virtual/models/product.dart';
 
+import 'components/sizes_form.dart';
+
 class EditProductScreen extends StatelessWidget {
+
   EditProductScreen(this.product);
 
   final Product product;
@@ -99,6 +102,8 @@ class EditProductScreen extends StatelessWidget {
                             return null;
                        },
                      ),
+
+                     SizesForm(product),
 
                     RaisedButton(
                       onPressed: () {
