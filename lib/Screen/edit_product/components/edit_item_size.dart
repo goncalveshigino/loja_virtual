@@ -14,7 +14,7 @@ class EditItemSize extends StatelessWidget {
 
   final VoidCallback onMoveUp;
 
-    final VoidCallback onMoveDown;
+  final VoidCallback onMoveDown;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +33,7 @@ class EditItemSize extends StatelessWidget {
                if(name.isEmpty)
                   return 'Invalido';
               return null;
+              
              },
              onChanged: (name) => size.name = name,
            ),
