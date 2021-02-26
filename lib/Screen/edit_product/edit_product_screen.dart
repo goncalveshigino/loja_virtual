@@ -105,15 +105,29 @@ class EditProductScreen extends StatelessWidget {
 
                      SizesForm(product),
 
-                    RaisedButton(
-                      onPressed: () {
-                        if (formKey.currentState.validate()) {
-                          print('Valido');
-                        } else {
-                          print('Invalido');
-                        }
-                      },
-                      child: const Text("Salvar"),
+                     const SizedBox( height: 20,),
+
+                    SizedBox(
+                      height: 44,
+                      child: RaisedButton(
+                        shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                        onPressed: () {
+                          if (formKey.currentState.validate()) {
+                            print('Valido');
+                          } else {
+                            print('Invalido');
+                          }
+                        },
+                        textColor: Colors.white,
+                        color: primaryColor,
+                        disabledColor: primaryColor.withAlpha(100),
+                        child: const Text(
+                          'Salvar',
+                          style: TextStyle(fontSize: 18.0),
+                          
+                        ),
+                      ),
                     )
                    ],
                 ),
