@@ -75,7 +75,7 @@ class ProductsScreen extends StatelessWidget {
                     return IconButton(
                       icon: Icon(Icons.add),
                       onPressed: (){
-                        Navigator.of(context).pushReplacementNamed(
+                        Navigator.of(context).pushNamed(
                           '/edit_product',
                      
                         );

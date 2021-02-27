@@ -16,7 +16,7 @@ class ImagesForm extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return FormField<List<dynamic>>(
-      initialValue: List.from(product.images),
+      initialValue: product.images,
       validator: (images){
 
         if(images.isEmpty){

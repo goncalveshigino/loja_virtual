@@ -8,9 +8,15 @@ import 'components/sizes_form.dart';
 
 class EditProductScreen extends StatelessWidget {
 
-  EditProductScreen(this.product);
+  
+
+  EditProductScreen(Product p) : 
+      editing = p != null,
+      product = p != null ? p.clone(): Product();
 
   final Product product;
+
+  final bool editing;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -21,7 +27,7 @@ class EditProductScreen extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Editar Produto'),
+          title:  Text( editing ? 'Editar Produto' : 'Criar Produto'),
           centerTitle: true,
         ),
         backgroundColor: Colors.white,
