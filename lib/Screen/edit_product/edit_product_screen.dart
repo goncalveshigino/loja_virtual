@@ -11,8 +11,10 @@ class EditProductScreen extends StatelessWidget {
   
 
   EditProductScreen(Product p) : 
+
       editing = p != null,
-      product = p != null ? p.clone(): Product();
+      product = p != null ?
+      p.clone(): Product();
 
   final Product product;
 
@@ -60,6 +62,7 @@ class EditProductScreen extends StatelessWidget {
                           return 'Titulo muito curto';
                         return null;
                       },
+                      onSaved: (name) => product.name = name,
                     ),
 
                     Padding(
@@ -103,10 +106,12 @@ class EditProductScreen extends StatelessWidget {
                        ),
                        maxLines: null,
                        validator: (desc) {
+
                           if(desc.length < 10)
                               return 'Descricao muito curta';
                             return null;
                        },
+                       onSaved: (desc) => product.description = desc,
                      ),
 
                      SizesForm(product),
@@ -119,11 +124,17 @@ class EditProductScreen extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                         onPressed: () {
+
                           if (formKey.currentState.validate()) {
+
+                              formKey.currentState.save();
+                           print(product);
                             print('Valido');
                           } else {
                             print('Invalido');
                           }
+
+
                         },
                         textColor: Colors.white,
                         color: primaryColor,
