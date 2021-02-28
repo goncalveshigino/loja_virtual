@@ -5,6 +5,7 @@ import 'package:loja_virtual/models/item_size.dart';
 import 'product.dart';
 
 class CartProduct extends ChangeNotifier {
+  
   CartProduct.fromProduct(this.product) {
     productId = product.id;
     quantity = 1;
