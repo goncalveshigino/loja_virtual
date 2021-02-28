@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:uuid/uuid.dart';
 
 import 'item_size.dart';
 
@@ -25,9 +29,13 @@ class Product extends ChangeNotifier{
   }
 
   final Firestore firestore = Firestore.instance;
+  final FirebaseStorage storage = FirebaseStorage.instance;
 
   //Obtendo o product por id para fazer uma atualizacao
   DocumentReference get firestoreRef => firestore.document('products/$id');
+  //Criando a pasta onde sera armazenaa todas as imagens
+  StorageReference get storageRef => storage.ref().child('products').child(id);
+
 
   String id;
   String name;
@@ -84,7 +92,7 @@ Future<void> save() async {
 
   final Map<String, dynamic> data = {
     'name': name,
-    'desciption': description,
+    'description': description,
     'sizes': exportSizeList()
   };
  // Criar se for nulo ou atualizar se ja existir na base de dados
@@ -94,7 +102,43 @@ Future<void> save() async {
   }else{
    await firestoreRef.updateData(data);
   }
+
+   // Images [url1,url2,url3]
+   // newImage [url3,file1]
+  // Update [url3,frul1]
+
+  //manda file1 pro storage -> furl1
+  // excluir image url1 do storage e a url2
+   
+   final List<String> updateImages = [];
+
+   for(final newImage in newImages){
+     if(images.contains(newImage)){
+       updateImages.add(newImage as String);
+     }else{
+       final StorageUploadTask task = storageRef.child(Uuid().v1()).putFile(newImage as File);
+       final StorageTaskSnapshot snapshot = await task.onComplete;
+       final String url = await snapshot.ref.getDownloadURL() as String;
+       updateImages.add(url);
+     }
+   }
+
+
+   for(final image in images){
+     if(!newImages.contains(image)){
+        try {
+           final ref = await storage.getReferenceFromUrl(image);
+           await ref.delete();
+        } catch (e) {
+          debugPrint('Falha ao deletar $image');
+        }
+     }
+   }
+
+   await firestoreRef.updateData({'images': updateImages});
+
 }
+
 
    Product clone(){
      return Product(

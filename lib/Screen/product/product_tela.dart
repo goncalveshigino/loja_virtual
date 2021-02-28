@@ -103,13 +103,13 @@ class ProductTela extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Text(
-                        product.description,
-                        style: TextStyle( 
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500
+                      Text(
+                          product.description,
+                          style: TextStyle( 
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500
+                          ),
                         ),
-                      ),
                         Padding(
                           padding: const EdgeInsets.only(top:16, bottom: 8),
                           child: Text(
