@@ -83,7 +83,8 @@ class EditProductScreen extends StatelessWidget {
                             hintText: 'Descricao', border: InputBorder.none),
                         maxLines: null,
                         validator: (desc) {
-                          if (desc.length < 10) return 'Descricao muito curta';
+                          if (desc.length < 10) 
+                          return 'Descricao muito curta';
                           return null;
                         },
                         onSaved: (desc) => product.description = desc,

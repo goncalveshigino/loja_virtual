@@ -15,6 +15,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       key: scaffoldkey,
       appBar: AppBar(
@@ -63,7 +64,10 @@ class LoginScreen extends StatelessWidget {
                       TextFormField(
                         controller: passController,
                         enabled: !userManager.loading,
-                        decoration: const InputDecoration(hintText: 'Senha'),
+                        decoration: const InputDecoration(
+                          hintText: 'Senha',
+                          
+                        ),
                         autocorrect: false,
                         obscureText: true,
                         validator: (pass) {

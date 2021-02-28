@@ -3,6 +3,7 @@ import 'package:loja_virtual/Screen/home/components/sectionStaggered.dart';
 import 'package:loja_virtual/Screen/home/components/section_list.dart';
 import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
 import 'package:loja_virtual/models/home_manager.dart';
+import 'package:loja_virtual/models/user_manager.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -38,11 +39,44 @@ class HomeScreen extends StatelessWidget {
                   centerTitle:true,
                 ),
                 actions: <Widget>[
+
                   IconButton(
                     icon: Icon(Icons.shopping_cart_outlined),
                     color: Colors.white,
                     onPressed: () => Navigator.of(context).pushNamed('/cart'),
+                  ),
+  
+                   Consumer2<UserManager, HomeManager>(
+                    builder: (_, userManager, homeManager, __){
+                      
+                      if(userManager.adminEnabled){
+
+                        if(homeManager.editing){
+                           return PopupMenuButton(
+
+
+                             itemBuilder: (_){
+
+                               return['Salvar','Descartar'].map((e){
+                                 return PopupMenuItem(
+                                   value: e,
+                                   child: Text(e),
+                                 );
+                               }).toList();
+                             },
+                           );
+                        }else{
+                          return IconButton(
+                           icon: Icon(Icons.edit),
+                           onPressed: homeManager.enterEditing
+                         );
+                        }
+                      
+                      }  else return Container();
+          
+                    }
                   )
+                  
                 ],
               ),
             Consumer<HomeManager>(
