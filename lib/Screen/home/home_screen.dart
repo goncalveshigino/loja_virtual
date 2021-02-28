@@ -53,7 +53,13 @@ class HomeScreen extends StatelessWidget {
 
                         if(homeManager.editing){
                            return PopupMenuButton(
-
+          onSelected: (){
+            if(e == 'Salvar'){
+              homeManager.saveEditing();
+            }else {
+              homeManager.discardEditing();
+            }
+          },
 
                              itemBuilder: (_){
 
