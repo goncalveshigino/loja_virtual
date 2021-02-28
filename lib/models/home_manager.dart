@@ -2,12 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:loja_virtual/models/section.dart';
 
-class HomeManager extends ChangeNotifier{
+class HomeManager extends ChangeNotifier {
   HomeManager() {
     _loadSections();
   }
 
-  List<Section> sections = [];
+  List<Section> _sections = [];
+
+  List<Section> _edittingections = [];
 
   bool editing = false;
 
@@ -15,26 +17,36 @@ class HomeManager extends ChangeNotifier{
 
   Future<void> _loadSections() async {
     firestore.collection('home').snapshots().listen((snapshot) {
-      sections.clear();
+      _sections.clear();
       for (final DocumentSnapshot document in snapshot.documents) {
-        sections.add(Section.fromDocument(document));
+        _sections.add(Section.fromDocument(document));
       }
-        notifyListeners();
+      notifyListeners();
     });
   }
 
-    void enterEditing(){
-      editing = true;
-      notifyListeners();
-    }
+  List<Section> get sections {
+    if (editing)
+      return _edittingections;
+    else
+      return _sections;
+  }
 
-    void saveEditing(){
-      editing = false;
-      notifyListeners();
-    }
+  void enterEditing() {
+    editing = true;
 
- void discardEditing(){
- editing = false;
- notifyListeners();
- }
+    _edittingections = _sections.map((s) => s.clone()).toList();
+
+    notifyListeners();
+  }
+
+  void saveEditing() {
+    editing = false;
+    notifyListeners();
+  }
+
+  void discardEditing() {
+    editing = false;
+    notifyListeners();
+  }
 }
