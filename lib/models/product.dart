@@ -24,6 +24,11 @@ class Product extends ChangeNotifier{
      
   }
 
+  final Firestore firestore = Firestore.instance;
+
+  //Obtendo o product por id para fazer uma atualizacao
+  DocumentReference get firestoreRef => firestore.document('products/$id');
+
   String id;
   String name;
   String description;
@@ -70,6 +75,26 @@ class Product extends ChangeNotifier{
        }
     }
 
+    List<Map<String, dynamic>> exportSizeList(){
+      return sizes.map((size) => size.toMap()).toList();
+    }
+
+//Enviando dados para o fire base
+Future<void> save() async {
+
+  final Map<String, dynamic> data = {
+    'name': name,
+    'desciption': description,
+    'sizes': exportSizeList()
+  };
+ // Criar se for nulo ou atualizar se ja existir na base de dados
+  if(id == null){
+    final doc = await firestore.collection('products').add(data);
+    id = doc.documentID;
+  }else{
+   await firestoreRef.updateData(data);
+  }
+}
 
    Product clone(){
      return Product(
