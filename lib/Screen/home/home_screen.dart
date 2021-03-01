@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loja_virtual/Screen/home/components/add_section_widget.dart';
 import 'package:loja_virtual/Screen/home/components/sectionStaggered.dart';
 import 'package:loja_virtual/Screen/home/components/section_list.dart';
 import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
@@ -53,13 +54,13 @@ class HomeScreen extends StatelessWidget {
 
                         if(homeManager.editing){
                            return PopupMenuButton(
-                              onSelected: (e){
-                                if(e == 'Salvar'){
-                                  homeManager.saveEditing();
-                                }else {
-                                  homeManager.discardEditing();
-                                }
-                              },
+                            onSelected: (e){
+                              if(e == 'Salvar'){
+                                homeManager.saveEditing();
+                              }else {
+                                homeManager.discardEditing();
+                              }
+                            },
 
                              itemBuilder: (_){
 
@@ -88,7 +89,7 @@ class HomeScreen extends StatelessWidget {
             Consumer<HomeManager>(
               builder: (_, homeManager, __){
 
-                final List<Widget> cheldren = homeManager.sections.map<Widget>(
+                final List<Widget> children = homeManager.sections.map<Widget>(
                         (section) {
                           switch(section.type){
                             case 'List':
@@ -99,8 +100,11 @@ class HomeScreen extends StatelessWidget {
                               return Container();
                           }
                         }).toList();
+
+                        if(homeManager.editing)
+                          children.add(AddSectionWidget(homeManager));
                 return SliverList(
-                  delegate: SliverChildListDelegate(cheldren),
+                  delegate: SliverChildListDelegate(children),
                 );
               }
              )
