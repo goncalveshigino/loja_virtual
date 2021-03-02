@@ -21,34 +21,42 @@ class SectionStaggered extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final homeManager = context.watch<HomeManager>();
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SectionHeader(section),
 
-           StaggeredGridView.countBuilder(
-             padding: EdgeInsets.zero,
-             shrinkWrap: true,
-             crossAxisCount: 4,
-             itemCount: homeManager.editing
-             ? section.items.length + 1
-             : section.items.length,
-             itemBuilder: (_,index){
+    return ChangeNotifierProvider.value(
+      value: section,
+        child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SectionHeader(),
 
-               if(index < section.items.length)
-                 return ItemTile(section.items[index]);
-                else 
-                  return AddTileWidget(section);
-                  
-             },
-             staggeredTileBuilder: (index) =>
-             StaggeredTile.count(2, index.isEven ? 2 : 1),
-             mainAxisSpacing: 4,
-             crossAxisSpacing: 4,
-           )
-        ],
+             Consumer<Section>(
+               builder: (_, section, __){
+                  return   StaggeredGridView.countBuilder(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      crossAxisCount: 4,
+                      itemCount: homeManager.editing
+                      ? section.items.length + 1
+                      : section.items.length,
+                      itemBuilder: (_,index){
+
+                        if(index < section.items.length)
+                          return ItemTile(section.items[index]);
+                          else 
+                            return AddTileWidget();
+                            
+                      },
+                      staggeredTileBuilder: (index) =>
+                      StaggeredTile.count(2, index.isEven ? 2 : 1),
+                      mainAxisSpacing: 4,
+                      crossAxisSpacing: 4,
+                    );
+               }
+            )
+          ],
+        ),
       ),
     );
   }
