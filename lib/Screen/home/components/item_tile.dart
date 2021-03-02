@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/models/home_manager.dart';
 import 'package:loja_virtual/models/product_manager.dart';
+import 'package:loja_virtual/models/section.dart';
 import 'package:loja_virtual/models/section_item.dart';
 import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -41,7 +42,7 @@ class ItemTile extends StatelessWidget {
                  actions: <Widget>[
                    FlatButton(
                      onPressed: (){
-
+                        context.read<Section>().removeItem(item);
                      },
                      textColor: Colors.red,
                      child:  const Text('Excluir'),
