@@ -14,32 +14,43 @@ class  SectionHeader extends StatelessWidget {
         final section = context.watch<Section>();
 
         if(homeManager.editing){
-          return Row(
-            children: <Widget>[
-              Expanded(
-                child: TextFormField(
-                  initialValue: section.name,
-                  decoration: const InputDecoration(
-                    hintText: 'Titulo',
-                    isDense: true,
-                    border: InputBorder.none
+          return Column(
+            children: [
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: TextFormField(
+                      initialValue: section.name,
+                      decoration: const InputDecoration(
+                        hintText: 'Titulo',
+                        isDense: true,
+                        border: InputBorder.none
+                      ),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 18
+                      ),
+                      onChanged: (text) => section.name = text,
+                    ),
                   ),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 18
-                  ),
-                  onChanged: (text) => section.name = text,
-                ),
-              ),
 
-              CustomIconButton(
-                 iconData: Icons.remove,
-                 color: Colors.white,
-                 onTap: (){
-                   homeManager.removeSection(section);
-                 },
-              )
+                  CustomIconButton(
+                     iconData: Icons.remove,
+                     color: Colors.white,
+                     onTap: (){
+                       homeManager.removeSection(section);
+                     },
+                  )
+                ],
+              ),
+              if(section.error != null)
+                  Text(
+                    section.error,
+                    style: const TextStyle(
+                      color: Colors.red
+                    ),
+                  )
             ],
           );
         } else {
