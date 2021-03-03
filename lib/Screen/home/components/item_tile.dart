@@ -75,7 +75,7 @@ class ItemTile extends StatelessWidget {
                       ],
                     );
                   });
-            }
+            } 
           : null,
       child: AspectRatio(
         aspectRatio: 1,
