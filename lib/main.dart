@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/Screen/edit_product/edit_product_screen.dart';
+import 'package:loja_virtual/Screen/select_product/select_product_screen.dart';
 
 import 'package:loja_virtual/Screen/signup/signup_screen.dart';
 import 'package:loja_virtual/models/admin_user_manager.dart';
@@ -88,6 +89,11 @@ class MyApp extends StatelessWidget {
                   builder: (_) => EditProductScreen(
                     settings.arguments as Product
                   )
+                );
+
+                  case '/select_product':
+                return MaterialPageRoute(
+                  builder: (_) => SelectProductScreen()
                 );
 
                   case '/product':
