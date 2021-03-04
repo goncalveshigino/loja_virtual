@@ -45,7 +45,7 @@ class Section extends ChangeNotifier {
     );
   }
 
-  void valid() {
+  bool valid() {
     if (name == null || name.isEmpty) {
       error = 'Titulo invalido';
     } else if (items.isEmpty) {
@@ -53,6 +53,7 @@ class Section extends ChangeNotifier {
     } else {
       error = null;
     }
+    return error == null;
   }
 
   @override
