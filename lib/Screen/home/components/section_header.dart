@@ -15,6 +15,7 @@ class  SectionHeader extends StatelessWidget {
 
         if(homeManager.editing){
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: <Widget>[
@@ -45,10 +46,13 @@ class  SectionHeader extends StatelessWidget {
                 ],
               ),
               if(section.error != null)
-                  Text(
-                    section.error,
-                    style: const TextStyle(
-                      color: Colors.red
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical:8.0),
+                    child: Text(
+                      section.error,
+                      style: const TextStyle(
+                        color: Colors.red
+                      ),
                     ),
                   )
             ],
