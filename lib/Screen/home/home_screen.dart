@@ -89,6 +89,17 @@ class HomeScreen extends StatelessWidget {
             Consumer<HomeManager>(
               builder: (_, homeManager, __){
 
+                  if(homeManager.loading){
+                    return SliverToBoxAdapter(
+                      child: LinearProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(
+                          Colors.white
+                        ),
+                        backgroundColor: Colors.transparent,
+                      ),
+                    );
+                  }
+
                 final List<Widget> children = homeManager.sections.map<Widget>(
                         (section) {
                           switch(section.type){

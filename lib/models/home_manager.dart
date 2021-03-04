@@ -12,6 +12,7 @@ class HomeManager extends ChangeNotifier {
   List<Section> _edittingections = [];
 
   bool editing = false;
+  bool loading = false;
 
   final Firestore firestore = Firestore.instance;
 
@@ -59,10 +60,14 @@ class HomeManager extends ChangeNotifier {
 
     if (!valid) return;
 
+    loading = true;
+    notifyListeners();
+
     for (final section in _edittingections) {
       await section.save();
     }
 
+    loading = false;
     editing = false;
     notifyListeners();
   }
