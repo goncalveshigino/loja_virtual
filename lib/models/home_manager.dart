@@ -50,21 +50,18 @@ class HomeManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  void saveEditing() {
-
+  Future<void> saveEditing() async {
     bool valid = true;
-     
-     for(final section in _edittingections){
-      if(!section.valid())
-          valid = false;
-     }
 
-     if(!valid) return;
+    for (final section in _edittingections) {
+      if (!section.valid()) valid = false;
+    }
 
-     print('Salvar');
+    if (!valid) return;
 
-    /*editing = false;
-    notifyListeners();*/
+    for (final section in _edittingections) {
+      await section.save();
+    }
   }
 
   void discardEditing() {
