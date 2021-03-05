@@ -17,7 +17,7 @@ class CepInputField extends StatelessWidget {
               hintText: '12.345-678'
             ),
             inputFormatters: [
-              WhitelistingTextInputFormatter.digitsOnly
+             FilteringTextInputFormatter.digitsOnly 
             ],
             keyboardType: TextInputType.number,
         ),
