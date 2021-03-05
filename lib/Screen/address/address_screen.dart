@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loja_virtual/Screen/address/components/address_card.dart';
 
 class AddressScreen extends StatelessWidget {
   @override
@@ -10,7 +11,7 @@ class AddressScreen extends StatelessWidget {
        ),
        body: ListView(
          children: <Widget>[
-            AddressCard();
+            AddressCard()
          ],
        ),
     );
