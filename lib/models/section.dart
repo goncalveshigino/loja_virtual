@@ -61,8 +61,8 @@ class Section extends ChangeNotifier {
   }
 
 //Sistema de salvamento
-  Future<void> save() async {
-    final Map<String, dynamic> data = {'name': name, 'type': type};
+  Future<void> save(int pos) async {
+    final Map<String, dynamic> data = {'name': name, 'type': type, 'pos': pos};
 
     if (id == null) {
       final doc = await firestore.collection('home').add(data);
@@ -84,20 +84,33 @@ class Section extends ChangeNotifier {
     for (final original in originalItem) {
       if (!items.contains(original)) {
         try {
-          final ref = await storage.getReferenceFromUrl(original.image as String);
+          final ref =
+              await storage.getReferenceFromUrl(original.image as String);
           await ref.delete();
         } catch (e) {}
       }
     }
 
-     final Map<String, dynamic> itemData = {
-       'items': items.map((e) => e.toMap()).toList()
-     };
+    final Map<String, dynamic> itemData = {
+      'items': items.map((e) => e.toMap()).toList()
+    };
 
-     await firestoreRef.updateData(itemData);
+    await firestoreRef.updateData(itemData);
   }
- // Fim do sistema de salvamento
+  // Fim do sistema de salvamento
 
+  Future<void> delete() async {
+
+    await firestoreRef.delete();
+    for(final item in items){
+     try {
+      final ref = await storage.getReferenceFromUrl(item.image as String);
+      await ref.delete();
+      //Ignore: empty_catches
+     } catch (e) {
+     }
+    }
+  }
 
   bool valid() {
     if (name == null || name.isEmpty) {

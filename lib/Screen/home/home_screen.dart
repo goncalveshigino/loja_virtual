@@ -50,7 +50,7 @@ class HomeScreen extends StatelessWidget {
                    Consumer2<UserManager, HomeManager>(
                     builder: (_, userManager, homeManager, __){
                       
-                      if(userManager.adminEnabled){
+                      if(userManager.adminEnabled && !homeManager.loading){
 
                         if(homeManager.editing){
                            return PopupMenuButton(
