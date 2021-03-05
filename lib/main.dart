@@ -9,6 +9,7 @@ import 'package:loja_virtual/models/cart_manager.dart';
 import 'package:loja_virtual/models/product.dart';
 import 'package:loja_virtual/models/product_manager.dart';
 import 'package:loja_virtual/models/user_manager.dart';
+import 'package:loja_virtual/services/cepaberto_service.dart';
 import 'package:provider/provider.dart';
 
 import 'Screen/base/base_screen.dart';
@@ -19,6 +20,8 @@ import 'models/home_manager.dart';
 
 void main() {
   runApp(MyApp());
+
+  CepAbertoService().getAddressFromCep('13.087-000');
 }
 
 class MyApp extends StatelessWidget {
@@ -31,90 +34,69 @@ class MyApp extends StatelessWidget {
           create: (_) => UserManager(),
           lazy: false,
         ),
-
         ChangeNotifierProvider(
           create: (_) => ProductManager(),
           lazy: false,
         ),
-          ChangeNotifierProvider(
-            create:(_) => HomeManager(),
-            lazy: false
-          ),
-          ChangeNotifierProxyProvider<UserManager, CartManager>(
+        ChangeNotifierProvider(create: (_) => HomeManager(), lazy: false),
+        ChangeNotifierProxyProvider<UserManager, CartManager>(
           create: (_) => CartManager(),
           lazy: false,
-          update:  (_, userManager, cartManager) => 
-          cartManager..updateUser(userManager),
+          update: (_, userManager, cartManager) =>
+              cartManager..updateUser(userManager),
         ),
-
-        ChangeNotifierProxyProvider<UserManager,AdminUserManager>(
+        ChangeNotifierProxyProvider<UserManager, AdminUserManager>(
           create: (_) => AdminUserManager(),
-          lazy: false, 
+          lazy: false,
           update: (_, userManager, adminUserManager) =>
-          adminUserManager..updateUser(userManager),
+              adminUserManager..updateUser(userManager),
         )
-        
       ],
-          child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Loja do Higino',
-          theme: ThemeData(
-              primaryColor: const Color.fromARGB(255, 4, 125, 141),
-              scaffoldBackgroundColor: const Color.fromARGB(255, 4, 125, 141),
-              appBarTheme: const AppBarTheme(
-                elevation: 0,
-              ),
-              visualDensity: VisualDensity.adaptivePlatformDensity),
-              initialRoute: '/base',
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Loja do Higino',
+        theme: ThemeData(
+            primaryColor: const Color.fromARGB(255, 4, 125, 141),
+            scaffoldBackgroundColor: const Color.fromARGB(255, 4, 125, 141),
+            appBarTheme: const AppBarTheme(
+              elevation: 0,
+            ),
+            visualDensity: VisualDensity.adaptivePlatformDensity),
+        initialRoute: '/base',
+        onGenerateRoute: (settings) {
+          switch (settings.name) {
+            case '/base':
+              return MaterialPageRoute(builder: (_) => BaseScreen());
 
-          onGenerateRoute: (settings) {
-            switch (settings.name) {
-                case '/base':
-                return MaterialPageRoute(
-                  builder: (_) => BaseScreen());
+            case '/signup':
+              return MaterialPageRoute(builder: (_) => SignUpScreen());
 
-                case '/signup':
-                return MaterialPageRoute(builder: (_) => SignUpScreen());
+            case '/login':
+              return MaterialPageRoute(builder: (_) => LoginScreen());
 
-                case '/login':
-                return MaterialPageRoute(
-                  builder: (_) => LoginScreen()
-                );
+            case '/cart':
+              return MaterialPageRoute(builder: (_) => CartScreen());
 
-                case '/cart':
-                return MaterialPageRoute(
-                  builder: (_) => CartScreen()
-                );
+            case '/address':
+              return MaterialPageRoute(builder: (_) => AddressScreen());
 
-                case '/address':
-                return MaterialPageRoute(
-                  builder: (_) => AddressScreen()
-                );
+            case '/edit_product':
+              return MaterialPageRoute(
+                  builder: (_) =>
+                      EditProductScreen(settings.arguments as Product));
 
-                case '/edit_product':
-                return MaterialPageRoute(
-                  builder: (_) => EditProductScreen(
-                    settings.arguments as Product
-                  )
-                );
+            case '/select_product':
+              return MaterialPageRoute(builder: (_) => SelectProductScreen());
 
-                  case '/select_product':
-                return MaterialPageRoute(
-                  builder: (_) => SelectProductScreen()
-                );
+            case '/product':
+              return MaterialPageRoute(
+                  builder: (_) => ProductTela(settings.arguments as Product));
 
-                  case '/product':
-                return MaterialPageRoute(
-                  builder: (_) => ProductTela(
-                    settings.arguments as Product
-                   )
-                );
-                
-              default:
-                return MaterialPageRoute(builder: (_) => BaseScreen());
-            }
-          },
-        ),
-      );
+            default:
+              return MaterialPageRoute(builder: (_) => BaseScreen());
+          }
+        },
+      ),
+    );
   }
 }
