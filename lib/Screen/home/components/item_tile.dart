@@ -8,7 +8,7 @@ import 'package:loja_virtual/models/section.dart';
 import 'package:loja_virtual/models/section_item.dart';
 import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'package:provider/provider.dart';
+
 
 class ItemTile extends StatelessWidget {
   const ItemTile(this.item);

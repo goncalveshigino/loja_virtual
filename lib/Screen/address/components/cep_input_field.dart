@@ -13,7 +13,7 @@ class CepInputField extends StatelessWidget {
         TextFormField(
             decoration: InputDecoration(
               isDense: true,
-              labelText: 'Cep',
+              labelText: 'CEP',
               hintText: '12.345-678'
             ),
             inputFormatters: [
