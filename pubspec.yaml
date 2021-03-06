@@ -38,8 +38,8 @@ dependencies:
   faker: ^1.2.1
   image_picker: ^0.6.7
   image_cropper: ^1.2.2
-  uuid: ^2.0.4
   transparent_image: ^1.0.0
+  uuid: ^2.0.4
   dio: ^3.0.9
 
 dev_dependencies:
