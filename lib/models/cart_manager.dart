@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:loja_virtual/models/cart_product.dart';
 import 'package:loja_virtual/models/user_manager.dart';
+import 'package:loja_virtual/services/cepaberto_service.dart';
 
 import 'product.dart';
 import 'user.dart';
@@ -57,23 +58,32 @@ class CartManager extends ChangeNotifier {
     productPrice = 0.0;
 
     for (int i = 0; i < items.length; i++) {
+
       final cartProduct = items[i];
+
       if (cartProduct.quantity == 0) {
+
         removeOfCart(cartProduct);
+
         i--;
+
         continue;
       }
       productPrice += cartProduct.totalPrice;
+
       _updateCartProduct(cartProduct);
     }
+
     notifyListeners();
   }
 
   void _updateCartProduct(CartProduct cartProduct) {
+
     if (cartProduct.id != null)
       user.cartReference
           .document(cartProduct.id)
           .updateData(cartProduct.toCartItemMap());
+
   }
 
   // Verificando o carrinho
@@ -83,4 +93,18 @@ class CartManager extends ChangeNotifier {
     }
     return true;
   }
+
+  //ADDRESS
+
+   Future<void> getAddress(String cep) async {
+
+     final cepAbertoService = CepAbertoService();
+
+     try {
+        final  address = await cepAbertoService.getAddressFromCep(cep);
+        print(address);
+     } catch (e) {
+       debugPrint(e.toString());
+     }
+   }
 }
