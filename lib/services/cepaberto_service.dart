@@ -29,7 +29,7 @@ class CepAbertoService {
 
       return address;
     } on DioError catch (e) {
-      return Future.error('Erro ao buscar CEP');
+      return Future.error('Erro ao buscar CEP $e');
     }
   }
 }

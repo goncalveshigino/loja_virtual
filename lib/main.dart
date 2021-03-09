@@ -9,7 +9,6 @@ import 'package:loja_virtual/models/cart_manager.dart';
 import 'package:loja_virtual/models/product.dart';
 import 'package:loja_virtual/models/product_manager.dart';
 import 'package:loja_virtual/models/user_manager.dart';
-import 'package:loja_virtual/services/cepaberto_service.dart';
 import 'package:provider/provider.dart';
 
 import 'Screen/base/base_screen.dart';
@@ -20,10 +19,6 @@ import 'models/home_manager.dart';
 
 void main() {
   runApp(MyApp());
-
-  /*CepAbertoService()
-      .getAddressFromCep('13.087-000')
-      .then((address) => print(address));*/
 }
 
 class MyApp extends StatelessWidget {
