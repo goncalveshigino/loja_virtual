@@ -7,13 +7,20 @@ class AddressInputField extends StatelessWidget {
 
   final Address address;
 
+
+
   @override
   Widget build(BuildContext context) {
 
+    final  primaryColor = Theme.of(context).primaryColor;
+
     String emptyValidator(String text) =>
         text.isEmpty ? 'Campo obrigatorio' : null;
+                                
+   if(address.zipCode != null)
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         TextFormField(
           initialValue: address.street,
@@ -61,10 +68,86 @@ class AddressInputField extends StatelessWidget {
               ),
             ),
           ],
+
+        ),
+        
+        TextFormField(
+          initialValue: address.district,
+          decoration: const InputDecoration(
+            isDense: true,
+            labelText: 'Bairro',
+            hintText: 'Comercial',
+          ),
+          validator: emptyValidator,
+          onSaved: (t) => address.district = t,
         ),
 
-        
+        Row(
+          children: <Widget>[
+            
+            Expanded(
+              flex: 3,
+              child: TextFormField(
+                enabled: false,
+                initialValue: address.city,
+                decoration: const InputDecoration(
+                  isDense: true,
+                  labelText: 'Cidade',
+                  hintText: 'Lubango',
+                ),
+                validator: emptyValidator,
+                onSaved:  (t) => address.city = t,
+              ),
+            ),
+
+              const SizedBox(
+                 width: 16.0,
+              ),
+
+            Expanded(
+  
+              child: TextFormField(
+                autocorrect: false,
+                enabled: false,
+                textCapitalization: TextCapitalization.characters,
+                initialValue: address.state,
+                decoration: const InputDecoration(
+                  isDense: true,
+                  labelText: 'HL',
+                  hintText: 'LB',
+                  counterText: '',
+                ),
+                maxLength: 2,
+                validator: (e){
+                  if(e.isEmpty){
+                     return 'Campo obrigatorio';
+                  } else if(e.length != 2){
+                    return 'Invalido';
+                  }
+                  return null;
+                }, 
+                onSaved:  (t) => address.city = t,
+              ),
+            )
+          ],
+        ),
+
+      const SizedBox(
+        height: 8.0,
+      ),
+
+      RaisedButton(
+        color: primaryColor,
+        disabledColor: primaryColor.withAlpha(100),
+        textColor: Colors.white,
+        onPressed: (){
+
+        },
+        child:  const Text('Calcular Frete'),
+       )
       ],
     );
+    else 
+     return Container();
   }
 }
