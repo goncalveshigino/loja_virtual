@@ -13,10 +13,12 @@ class AddressInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).primaryColor;
 
+    final cartManager = context.watch<CartManager>();
+
     String emptyValidator(String text) =>
         text.isEmpty ? 'Campo obrigatorio' : null;
 
-    if (address.zipCode != null)
+    if (address.zipCode != null && cartManager.deliveryPrice == null)
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -119,28 +121,40 @@ class AddressInputField extends StatelessWidget {
             height: 8.0,
           ),
           RaisedButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10)),
             color: primaryColor,
             disabledColor: primaryColor.withAlpha(100),
             textColor: Colors.white,
             onPressed: () async {
+
               if (Form.of(context).validate()) {
                 Form.of(context).save();
 
                 try {
                   await context.read<CartManager>().setAddress(address);
                 } catch (e) {
-                   Scaffold.of(context).showSnackBar(
-                     SnackBar(
-                       content: Text('$e'),
-                       backgroundColor: Colors.red,
-                     )
-                   );
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text('$e'),
+                    backgroundColor: Colors.red,
+                  )
+                  );
                 }
+
               }
             },
             child: const Text('Calcular Frete'),
           )
         ],
+      );
+    else if (address.zipCode != null)
+      //if(address.zipCode != null && cartManager.deliveryPrice != null)
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 16.0),
+        child:
+            Text('${address.street}, ${address.number}\n${address.district}\n'
+                '${address.city} - ${address.state}'
+        ),
       );
     else
       return Container();

@@ -18,6 +18,8 @@ class CartManager extends ChangeNotifier {
   num productPrice = 0.0;
   num deliveryPrice;
 
+  num get totalPrice => productPrice + (deliveryPrice ?? 0);
+
   final Firestore firestore = Firestore.instance;
 
   void updateUser(UserManager userManager) {
@@ -96,7 +98,10 @@ class CartManager extends ChangeNotifier {
     return true;
   }
 
+ bool get isAddressValid => address != null && deliveryPrice != null;
+ 
   //ADDRESS
+ 
 
   Future<void> getAddress(String cep) async {
     final cepAbertoService = CepAbertoService();
@@ -123,20 +128,19 @@ class CartManager extends ChangeNotifier {
 
   void removeAddress() {
     address = null;
+    deliveryPrice = null;
     notifyListeners();
   }
 
-
-  Future<void> setAddress(Address address) async{
+  Future<void> setAddress(Address address) async {
     this.address = address;
 
-     if( await calculateDelivery(address.latitude, address.longitude)){
-         print('price $deliveryPrice');
-     } else {
-       return Future.error('Endereco fora do raio de entrega :(');
-     }
+    if (await calculateDelivery(address.latitude, address.longitude)) {
+      notifyListeners();
+    } else {
+      return Future.error('Endereco fora do raio de entrega :(');
+    }
   }
-
 
   Future<bool> calculateDelivery(double latitude, double longitude) async {
     final DocumentSnapshot doc = await firestore.document('aux/delivery').get();
@@ -151,8 +155,8 @@ class CartManager extends ChangeNotifier {
 
     final km = doc.data['km'] as num;
 
-    double dis = await Geolocator()
-        .distanceBetween(latStore, lonStore, latitude, longitude);
+    double dis =
+        await Geolocator().distanceBetween(latStore, lonStore, latitude, longitude);
 
     dis /= 1000.0;
 
@@ -165,5 +169,4 @@ class CartManager extends ChangeNotifier {
     deliveryPrice = base + dis * km;
     return true;
   }
-  
 }
