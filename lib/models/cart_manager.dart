@@ -16,6 +16,7 @@ class CartManager extends ChangeNotifier {
   Address address;
 
   num productPrice = 0.0;
+  num deliveryPrice;
 
   final Firestore firestore = Firestore.instance;
 
@@ -63,11 +64,9 @@ class CartManager extends ChangeNotifier {
     productPrice = 0.0;
 
     for (int i = 0; i < items.length; i++) {
-
       final cartProduct = items[i];
 
       if (cartProduct.quantity == 0) {
-
         removeOfCart(cartProduct);
 
         i--;
@@ -83,12 +82,10 @@ class CartManager extends ChangeNotifier {
   }
 
   void _updateCartProduct(CartProduct cartProduct) {
-
     if (cartProduct.id != null)
       user.cartReference
           .document(cartProduct.id)
           .updateData(cartProduct.toCartItemMap());
-
   }
 
   // Verificando o carrinho
@@ -101,60 +98,72 @@ class CartManager extends ChangeNotifier {
 
   //ADDRESS
 
-   Future<void> getAddress(String cep) async {
+  Future<void> getAddress(String cep) async {
+    final cepAbertoService = CepAbertoService();
 
-     final cepAbertoService = CepAbertoService();
+    try {
+      final cepAbertoAddress = await cepAbertoService.getAddressFromCep(cep);
 
-     try {
-
-        final  cepAbertoAddress = await cepAbertoService.getAddressFromCep(cep);
-
-        if(cepAbertoAddress != null){
-          
-          address = Address(
+      if (cepAbertoAddress != null) {
+        address = Address(
             street: cepAbertoAddress.logradouro,
             district: cepAbertoAddress.bairro,
             zipCode: cepAbertoAddress.cep,
             city: cepAbertoAddress.cidade.nome,
             state: cepAbertoAddress.estado.sigla,
             latitude: cepAbertoAddress.latitude,
-            longitude: cepAbertoAddress.longitude
-          );
+            longitude: cepAbertoAddress.longitude);
 
-          notifyListeners();
-        }
-  
-     } catch (e) {
-       debugPrint(e.toString());
+        notifyListeners();
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  void removeAddress() {
+    address = null;
+    notifyListeners();
+  }
+
+
+  Future<void> setAddress(Address address) async{
+    this.address = address;
+
+     if( await calculateDelivery(address.latitude, address.longitude)){
+         print('price $deliveryPrice');
+     } else {
+       return Future.error('Endereco fora do raio de entrega :(');
      }
-   }
+  }
 
-   void removeAddress(){
-     address = null;
-     notifyListeners();
-   }
 
-   void setAddress(Address address){
-      this.address = address;
+  Future<bool> calculateDelivery(double latitude, double longitude) async {
+    final DocumentSnapshot doc = await firestore.document('aux/delivery').get();
 
-      calculateDelivery(address.latitude, address.longitude);
-   }
+    final latStore = doc.data['latitude'] as double;
 
-   Future<void> calculateDelivery( double latitude, double longitude) async {
+    final lonStore = doc.data['longitude'] as double;
 
-     final DocumentSnapshot doc = await firestore.document('aux/delivery').get();
+    final maxkm = doc.data['maxkm'] as num;
 
-     final latStore = doc.data['latitude'] as double;
+    final base = doc.data['base'] as num;
 
-     final lonStore = doc.data['longitude'] as double;
+    final km = doc.data['km'] as num;
 
-     final maxkm = doc.data['maxkm'] as num;
+    double dis = await Geolocator()
+        .distanceBetween(latStore, lonStore, latitude, longitude);
 
-     double dis = await  Geolocator().distanceBetween(latStore, lonStore, latitude, longitude);
+    dis /= 1000.0;
 
-     dis /= 1000.0;
+    debugPrint('Distancia $dis');
 
-    
-      print('Distancia $dis');
-   }
+    if (dis > maxkm) {
+      return false;
+    }
+
+    deliveryPrice = base + dis * km;
+    return true;
+  }
+  
 }
