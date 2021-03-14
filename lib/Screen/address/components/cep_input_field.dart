@@ -7,38 +7,33 @@ import 'package:loja_virtual/models/cart_manager.dart';
 import 'package:provider/provider.dart';
 
 class CepInputField extends StatelessWidget {
+  CepInputField(this.address);
 
- CepInputField(this.address);
+  final Address address;
 
-   final Address address;
-
-   final cepController = TextEditingController();
+  final cepController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-
     final primaryColor = Theme.of(context).primaryColor;
 
-   if(address.zipCode == null)
+    final cartManager = context.watch<CartManager>();
 
+    if (address.zipCode == null)
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-
           TextFormField(
+            enabled: !cartManager.loading,
             controller: cepController,
             decoration: InputDecoration(
-                isDense: true, labelText: 'CEP', 
-                hintText: '12.345-678'),
-
+                isDense: true, labelText: 'CEP', hintText: '12.345-678'),
             inputFormatters: [
-
               FilteringTextInputFormatter.digitsOnly,
               CepInputFormatter()
             ],
             keyboardType: TextInputType.number,
             validator: (cep) {
-
               if (cep.isEmpty) {
                 return 'Campo Obrigatorio';
               } else if (cep.length != 10) {
@@ -47,17 +42,19 @@ class CepInputField extends StatelessWidget {
                 return null;
               }
             },
-        
           ),
-          RaisedButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10)
+          if (cartManager.loading)
+            LinearProgressIndicator(
+              valueColor: AlwaysStoppedAnimation(primaryColor),
+              backgroundColor: Colors.transparent,
             ),
+          RaisedButton(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             onPressed: () {
-              if (Form.of(context).validate()) {   
+              if (Form.of(context).validate()) {
                 context.read<CartManager>().getAddress(cepController.text);
               }
-
             },
             textColor: Colors.white,
             color: primaryColor,
@@ -66,29 +63,27 @@ class CepInputField extends StatelessWidget {
           )
         ],
       );
-    else 
-     return Padding(
-       padding: const EdgeInsets.symmetric(vertical: 4),
-       child: Row(
-         children: <Widget>[
-             Expanded(
-               child: Text(
-                 'CEP: ${address.zipCode}',
-                 style: TextStyle(
-                   color: primaryColor,
-                   fontWeight: FontWeight.w600
-                 ),
-               ),
-             ),
-             CustomIconButton(
-               iconData: Icons.edit,
-               color: primaryColor,
-               onTap: (){
-                  context.read<CartManager>().removeAddress();
-               },
-             )
-         ],
-       ),
-     );
+    else
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4),
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: Text(
+                'CEP: ${address.zipCode}',
+                style:
+                    TextStyle(color: primaryColor, fontWeight: FontWeight.w600),
+              ),
+            ),
+            CustomIconButton(
+              iconData: Icons.edit,
+              color: primaryColor,
+              onTap: () {
+                context.read<CartManager>().removeAddress();
+              },
+            )
+          ],
+        ),
+      );
   }
 }
