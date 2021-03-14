@@ -50,6 +50,9 @@ class CepInputField extends StatelessWidget {
         
           ),
           RaisedButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10)
+            ),
             onPressed: () {
               if (Form.of(context).validate()) {   
                 context.read<CartManager>().getAddress(cepController.text);
