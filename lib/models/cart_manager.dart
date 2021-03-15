@@ -130,11 +130,13 @@ class CartManager extends ChangeNotifier {
             );
 
       }
+         loading = false;
     } catch (e) {
-      debugPrint(e.toString());
+         loading = false;
+      return Future.error('CEP Invalido');
     }
 
-   loading = false;
+
 
   }
 

@@ -6,12 +6,19 @@ import 'package:loja_virtual/models/address.dart';
 import 'package:loja_virtual/models/cart_manager.dart';
 import 'package:provider/provider.dart';
 
-class CepInputField extends StatelessWidget {
-  CepInputField(this.address);
+class CepInputField extends StatefulWidget {
 
+  CepInputField(this.address);
+      
   final Address address;
 
-  final cepController = TextEditingController();
+  @override
+  _CepInputFieldState createState() => _CepInputFieldState();
+}
+
+class _CepInputFieldState extends State<CepInputField> {
+
+  final TextEditingController cepController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +26,9 @@ class CepInputField extends StatelessWidget {
 
     final cartManager = context.watch<CartManager>();
 
-    if (address.zipCode == null)
+
+
+    if (widget.address.zipCode == null)
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -51,11 +60,20 @@ class CepInputField extends StatelessWidget {
           RaisedButton(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            onPressed: () {
+            onPressed: !cartManager.loading ? () async {
               if (Form.of(context).validate()) {
-                context.read<CartManager>().getAddress(cepController.text);
+                  try {
+                     await context.read<CartManager>().getAddress(cepController.text);
+                  } catch (e) {
+                    Scaffold.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('$e'),
+                        backgroundColor: Colors.red,
+                      )
+                    );
+                  }
               }
-            },
+            }: null,
             textColor: Colors.white,
             color: primaryColor,
             disabledColor: primaryColor.withAlpha(100),
@@ -70,7 +88,7 @@ class CepInputField extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Text(
-                'CEP: ${address.zipCode}',
+                'CEP: ${widget.address.zipCode}',
                 style:
                     TextStyle(color: primaryColor, fontWeight: FontWeight.w600),
               ),
