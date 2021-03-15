@@ -2,10 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:loja_virtual/models/address.dart';
-import 'package:loja_virtual/models/cart_product.dart';
+
 import 'package:loja_virtual/models/user_manager.dart';
 import 'package:loja_virtual/services/cepaberto_service.dart';
 
+import 'cart_product.dart';
 import 'product.dart';
 import 'user.dart';
 
@@ -31,10 +32,13 @@ class CartManager extends ChangeNotifier {
 
   void updateUser(UserManager userManager) {
     user = userManager.user;
+    productPrice = 0.0;
     items.clear();
+    removeAddress();
 
     if (user != null) {
       _loadCartItems();
+      _loadUserAddress();
     }
   }
 
@@ -44,6 +48,15 @@ class CartManager extends ChangeNotifier {
     items = cartSnap.documents
         .map((d) => CartProduct.fromDocument(d)..addListener(_onItemUpadted))
         .toList();
+  }
+
+  Future<void> _loadUserAddress() async {
+    if (user.address != null &&
+        await calculateDelivery(
+            user.address.latitude, user.address.longitude)) {
+      address = user.address;
+      notifyListeners();
+    }
   }
 
   void addToCart(Product product) {
@@ -110,7 +123,6 @@ class CartManager extends ChangeNotifier {
   //ADDRESS
 
   Future<void> getAddress(String cep) async {
-
     loading = true;
 
     final cepAbertoService = CepAbertoService();
@@ -126,18 +138,13 @@ class CartManager extends ChangeNotifier {
             city: cepAbertoAddress.cidade.nome,
             state: cepAbertoAddress.estado.sigla,
             latitude: cepAbertoAddress.latitude,
-            longitude: cepAbertoAddress.longitude
-            );
-
+            longitude: cepAbertoAddress.longitude);
       }
-         loading = false;
+      loading = false;
     } catch (e) {
-         loading = false;
+      loading = false;
       return Future.error('CEP Invalido');
     }
-
-
-
   }
 
   void removeAddress() {
@@ -147,12 +154,12 @@ class CartManager extends ChangeNotifier {
   }
 
   Future<void> setAddress(Address address) async {
-
     loading = true;
 
     this.address = address;
 
     if (await calculateDelivery(address.latitude, address.longitude)) {
+      user.setAddress(address);
       loading = false;
     } else {
       loading = false;

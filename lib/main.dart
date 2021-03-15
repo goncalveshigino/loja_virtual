@@ -5,9 +5,6 @@ import 'package:loja_virtual/Screen/select_product/select_product_screen.dart';
 
 import 'package:loja_virtual/Screen/signup/signup_screen.dart';
 import 'package:loja_virtual/models/admin_user_manager.dart';
-import 'package:loja_virtual/models/cart_manager.dart';
-import 'package:loja_virtual/models/product.dart';
-import 'package:loja_virtual/models/product_manager.dart';
 import 'package:loja_virtual/models/user_manager.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +12,10 @@ import 'Screen/base/base_screen.dart';
 import 'Screen/cart/cart_screen.dart';
 import 'Screen/login/login_screen.dart';
 import 'Screen/product/product_tela.dart';
+import 'models/cart_manager.dart';
 import 'models/home_manager.dart';
+import 'models/product.dart';
+import 'models/product_manager.dart';
 
 void main() {
   runApp(MyApp());
