@@ -5,6 +5,7 @@ import 'package:loja_virtual/Screen/edit_product/components/images_form.dart';
 import 'package:loja_virtual/models/product.dart';
 import 'package:loja_virtual/models/product_manager.dart';
 
+
 import 'components/sizes_form.dart';
 import 'package:provider/provider.dart';
 

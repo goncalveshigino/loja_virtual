@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:loja_virtual/models/home_manager.dart';
 import 'package:loja_virtual/models/product.dart';
 import 'package:loja_virtual/models/product_manager.dart';
+
 import 'package:loja_virtual/models/section.dart';
 import 'package:loja_virtual/models/section_item.dart';
 import 'package:provider/provider.dart';

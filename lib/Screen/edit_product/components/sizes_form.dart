@@ -4,6 +4,7 @@ import 'package:loja_virtual/common/custom_icon_button.dart';
 import 'package:loja_virtual/models/item_size.dart';
 import 'package:loja_virtual/models/product.dart';
 
+
 class SizesForm extends StatelessWidget {
   final Product product;
 
