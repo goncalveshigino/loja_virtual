@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/Screen/address/address_screen.dart';
+import 'package:loja_virtual/Screen/checkout/checkout_screen.dart';
 import 'package:loja_virtual/Screen/edit_product/edit_product_screen.dart';
 import 'package:loja_virtual/Screen/select_product/select_product_screen.dart';
 
@@ -76,6 +77,9 @@ class MyApp extends StatelessWidget {
 
             case '/address':
               return MaterialPageRoute(builder: (_) => AddressScreen());
+
+            case '/checkout':
+              return MaterialPageRoute(builder: (_) => CheckoutScreen());
 
             case '/edit_product':
               return MaterialPageRoute(
