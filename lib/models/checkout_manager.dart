@@ -19,15 +19,18 @@ class CheckoutManager extends ChangeNotifier {
    }
 
 
-    Future<void> checkout() async {
+    Future<void> checkout({Function onStockFail}) async {
         try {
          await _decrementStock(); 
         } catch (e) {
+          onStockFail(e);
            debugPrint(e.toString());
         }
 
        _getOrderId().then((value) => print(value));
     }
+
+
 
     Future<int> _getOrderId() async {
 
