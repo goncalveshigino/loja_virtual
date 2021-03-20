@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/models/cart_manager.dart';
+import 'package:loja_virtual/models/checkout_manager.dart';
 
 import 'package:provider/provider.dart';
 
@@ -15,6 +16,8 @@ class PriceCard extends StatelessWidget {
     final productPrice = cartManager.productPrice;
     final deliveryPrice = cartManager.deliveryPrice;
     final totalPrice = cartManager.totalPrice;
+
+
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -71,6 +74,7 @@ class PriceCard extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
+          
             RaisedButton(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
