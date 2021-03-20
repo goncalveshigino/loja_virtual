@@ -63,18 +63,23 @@ class MyApp extends StatelessWidget {
         initialRoute: '/base',
         onGenerateRoute: (settings) {
           switch (settings.name) {
-            case '/base':
-              return MaterialPageRoute(builder: (_) => BaseScreen());
-
-            case '/signup':
-              return MaterialPageRoute(builder: (_) => SignUpScreen());
 
             case '/login':
               return MaterialPageRoute(builder: (_) => LoginScreen());
 
-            case '/cart':
+
+            case '/signup':
+              return MaterialPageRoute(builder: (_) => SignUpScreen());
+
+            case '/product':
               return MaterialPageRoute(
-                builder: (_) => CartScreen(),
+                  builder: (_) => ProductTela(
+                    settings.arguments as Product
+                )
+            );
+
+            case '/cart':
+              return MaterialPageRoute(builder: (_) => CartScreen(),
                 settings: settings
               );
 
@@ -90,14 +95,15 @@ class MyApp extends StatelessWidget {
                       EditProductScreen(settings.arguments as Product));
 
             case '/select_product':
-              return MaterialPageRoute(builder: (_) => SelectProductScreen());
+              return MaterialPageRoute(builder: (_) => SelectProductScreen()
+            );
 
-            case '/product':
-              return MaterialPageRoute(
-                  builder: (_) => ProductTela(settings.arguments as Product));
-
+            case '/base':
             default:
-              return MaterialPageRoute(builder: (_) => BaseScreen());
+              return MaterialPageRoute(
+                builder: (_) => BaseScreen(),
+                settings: settings
+            );
           }
         },
       ),
