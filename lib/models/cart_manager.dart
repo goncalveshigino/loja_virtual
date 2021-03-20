@@ -195,5 +195,12 @@ class CartManager extends ChangeNotifier {
     return true;
   }
 
-
+//Apagar items no carrinho
+  void clear() {
+    for (final cartProduct in items) {
+      user.cartReference.document(cartProduct.id).delete();
+    }
+    items.clear();
+    notifyListeners();
+  }
 }
