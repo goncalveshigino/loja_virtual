@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loja_virtual/common/price_card.dart';
 import 'package:loja_virtual/models/cart_manager.dart';
 import 'package:loja_virtual/models/checkout_manager.dart';
+
 import 'package:provider/provider.dart';
 
 class CheckoutScreen extends StatelessWidget {
@@ -22,13 +23,13 @@ class CheckoutScreen extends StatelessWidget {
           centerTitle: true,
         ),
         body: Consumer<CheckoutManager>(
-          builder: (_, checkoutMAnger, __) {
+          builder: (_, checkoutManager, __) {
             return ListView(
               children: <Widget>[
                 PriceCard(
                   buttonText: 'Finalizar Pedido',
-                  onPressed: () {
-                    checkoutMAnger.checkout(
+                  onPressed:  () {
+                    checkoutManager.checkout(
                       onStockFail: (e){
       
                          Navigator.of(context).popUntil(
