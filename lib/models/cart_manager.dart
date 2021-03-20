@@ -194,4 +194,6 @@ class CartManager extends ChangeNotifier {
     deliveryPrice = base + dis * km;
     return true;
   }
+
+
 }

@@ -1,7 +1,10 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:loja_virtual/models/address.dart';
-import 'package:loja_virtual/models/cart_manager.dart';
+import 'package:loja_virtual/models/cart_product.dart';
+
+import 'cart_manager.dart';
+
 
 class Order {
 
@@ -16,11 +19,20 @@ class Order {
 
  final Firestore firestore = Firestore.instance;
 
- 
+ Future<void> save() async {
+   firestore.collection('orders').document(orderId).setData(
+     {
+        'items':  items.map((e) => e.toOrderItemMap()).toList(),
+        'price': price,
+        'user': userId,
+        'address': address.toMap(),
+     }
+   );
+ }
 
   String orderId;
 
-  List<CartManager> items;
+  List<CartProduct> items;
 
   num price;
 
