@@ -38,6 +38,8 @@ class CheckoutManager extends ChangeNotifier {
     order.orderId = orderId.toString();
 
     await order.save();
+
+    cartManager.clear();
   }
 
   Future<int> _getOrderId() async {
