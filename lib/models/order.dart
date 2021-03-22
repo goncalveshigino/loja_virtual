@@ -50,6 +50,8 @@ class Order {
 
   Timestamp date;
 
+  String get formattedId => '#${orderId.padLeft(6,'0')}';
+
   @override
   String toString() {
     return 'Order{firestore: $firestore, orderId: $orderId, items: $items,'
