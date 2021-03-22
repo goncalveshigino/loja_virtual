@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/Screen/admin_user/admin_user_screen.dart';
 import 'package:loja_virtual/Screen/home/home_screen.dart';
+import 'package:loja_virtual/Screen/orders/orders_screen.dart';
 import 'package:loja_virtual/Screen/products/products_screen.dart';
 
 import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
@@ -33,12 +34,7 @@ class _BaseScreenState extends State<BaseScreen> {
                     // LoginScreen(),
                     HomeScreen(),
                     ProductsScreen(),
-                    Scaffold(
-                      drawer: CustomDrawer(),
-                      appBar: AppBar(
-                        title: const Text('Meus Pedidos'),
-                      ),
-                    ),
+                    OrderScreen(),
                     Scaffold(
                       drawer: CustomDrawer(),
                       appBar: AppBar(
