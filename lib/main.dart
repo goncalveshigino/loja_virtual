@@ -15,6 +15,7 @@ import 'Screen/login/login_screen.dart';
 import 'Screen/product/product_tela.dart';
 import 'models/cart_manager.dart';
 import 'models/home_manager.dart';
+import 'models/orders_manager.dart';
 import 'models/product.dart';
 import 'models/product_manager.dart';
 
@@ -48,6 +49,11 @@ class MyApp extends StatelessWidget {
           lazy: false,
           update: (_, userManager, adminUserManager) =>
               adminUserManager..updateUser(userManager),
+        ),
+        ChangeNotifierProxyProvider<UserManager, OrdersManager>(
+          create: (_) => OrdersManager(),
+          lazy: false, 
+          update: (_, userManager, ordersManager) => ordersManager..updateUser(userManager.user)
         )
       ],
       child: MaterialApp(
