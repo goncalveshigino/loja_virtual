@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/Screen/orders/components/order_tile.dart';
+import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
 import 'package:loja_virtual/common/custom_drawer/empty_card.dart';
 import 'package:loja_virtual/common/custom_drawer/login_card.dart';
 import 'package:loja_virtual/models/orders_manager.dart';
 import 'package:provider/provider.dart';
 
 class OrderScreen extends StatelessWidget {
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+    drawer: CustomDrawer(),
       appBar: AppBar(
         title: const Text('Meus Pedidos'),
         centerTitle: true,
