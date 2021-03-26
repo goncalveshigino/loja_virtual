@@ -7,7 +7,6 @@ import 'cart_manager.dart';
 enum Status { canceled, preparing, transporting, delivered }
 
 class Order {
-
   //Mandando o produto no firebase
   Order.fromCartManager(CartManager cartManager) {
     items = List.from(cartManager.items);
@@ -29,6 +28,8 @@ class Order {
     userId = doc.data['user'] as String;
     address = Address.fromMap(doc.data['address'] as Map<String, dynamic>);
     date = doc.data['date'] as Timestamp;
+
+    status = Status.values[doc.data['status'] as int];
   }
 
   final Firestore firestore = Firestore.instance;
@@ -39,6 +40,8 @@ class Order {
       'price': price,
       'user': userId,
       'address': address.toMap(),
+      'status': status.index,
+      'date': Timestamp.now()
     });
   }
 
@@ -57,6 +60,27 @@ class Order {
   Timestamp date;
 
   String get formattedId => '#${orderId.padLeft(6, '0')}';
+
+  String get statusText => getStatusText(status);
+
+  static String getStatusText(Status status) {
+    switch (status) {
+      case Status.canceled:
+        return 'Cancelado';
+
+      case Status.preparing:
+        return 'Em Preparacao';
+
+      case Status.transporting:
+        return 'Em Transporte';
+
+      case Status.delivered:
+        return 'Entregue';
+
+      default:
+        return '';
+    }
+  }
 
   @override
   String toString() {
