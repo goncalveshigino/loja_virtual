@@ -5,6 +5,7 @@ import 'package:loja_virtual/Screen/edit_product/edit_product_screen.dart';
 import 'package:loja_virtual/Screen/select_product/select_product_screen.dart';
 
 import 'package:loja_virtual/Screen/signup/signup_screen.dart';
+import 'package:loja_virtual/models/admin_orders_manager.dart';
 import 'package:loja_virtual/models/admin_user_manager.dart';
 import 'package:loja_virtual/models/order.dart';
 import 'package:loja_virtual/models/user_manager.dart';
@@ -31,34 +32,55 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+
         ChangeNotifierProvider(
           create: (_) => UserManager(),
           lazy: false,
         ),
+
         ChangeNotifierProvider(
           create: (_) => ProductManager(),
           lazy: false,
         ),
-        ChangeNotifierProvider(create: (_) => HomeManager(), lazy: false),
+
+        ChangeNotifierProvider(
+          create: (_) => HomeManager(),
+           lazy: false
+        ),
+
         ChangeNotifierProxyProvider<UserManager, CartManager>(
           create: (_) => CartManager(),
           lazy: false,
           update: (_, userManager, cartManager) =>
               cartManager..updateUser(userManager),
         ),
+
+
         ChangeNotifierProxyProvider<UserManager, AdminUserManager>(
           create: (_) => AdminUserManager(),
           lazy: false,
           update: (_, userManager, adminUserManager) =>
               adminUserManager..updateUser(userManager),
         ),
+
+
         ChangeNotifierProxyProvider<UserManager, OrdersManager>(
           create: (_) => OrdersManager(),
           lazy: false, 
           update: (_, userManager, ordersManager) => 
             ordersManager..updateUser(userManager.user)
+        ),
+
+        ChangeNotifierProxyProvider<UserManager,AdminOrdersManager>(
+          create: (_) => AdminOrdersManager(),
+          lazy: false,
+          update: (_,userManager,adminOrdersManager) =>
+          adminOrdersManager..updateAdmin(
+            adminEnabled: userManager.adminEnabled
+          )
         )
       ],
+      
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Loja do Higino',
