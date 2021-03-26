@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:loja_virtual/Screen/orders/components/order_product_tile.dart';
+import 'package:loja_virtual/common/order/order_product_tile.dart';
 import 'package:loja_virtual/models/order.dart';
 
 class OrderTile extends StatelessWidget {
-  const OrderTile(this.order);
+
+  const OrderTile(this.order, {this.showControllers = false});
 
   final Order order;
+
+  final bool showControllers;
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +58,24 @@ class OrderTile extends StatelessWidget {
              children: order.items.map((e){
                 return OrderProductTile(e);
              }).toList(),
+          ),
+
+          SizedBox(
+            height: 50,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: <Widget>[
+                FlatButton(
+                  onPressed: (){
+
+                  },
+                  textColor: Colors.red,
+                  child: const Text('Cancelar'),
+                )
+              ],
+            ),
           )
         ],
-
       ),
     );
   }

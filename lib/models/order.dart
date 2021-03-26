@@ -69,7 +69,7 @@ class Order {
         return 'Cancelado';
 
       case Status.preparing:
-        return 'Em Preparacao';
+        return 'Em Preparação';
 
       case Status.transporting:
         return 'Em Transporte';
