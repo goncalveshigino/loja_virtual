@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loja_virtual/Screen/orders/components/order_tile.dart';
+import 'package:loja_virtual/common/order/order_tile.dart';
 import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
 import 'package:loja_virtual/common/custom_drawer/empty_card.dart';
 import 'package:loja_virtual/models/admin_orders_manager.dart';
@@ -11,7 +11,7 @@ class AdminOrdersScreen  extends StatelessWidget {
     return Scaffold(
     drawer: CustomDrawer(),
       appBar: AppBar(
-        title: const Text('Meus Pedidos'),
+        title: const Text('Todos os Pedidos'),
         centerTitle: true,
       ),
       body: Consumer<AdminOrdersManager>(
@@ -28,7 +28,9 @@ class AdminOrdersScreen  extends StatelessWidget {
               itemBuilder: (_, index){
                 return OrderTile(
 
-                   adminOrderManager.orders.reversed.toList()[index]
+                   adminOrderManager.orders.reversed.toList()[index],
+                   showControllers: true,
+                   
                 );
               },
           );
