@@ -4,12 +4,17 @@ import 'package:loja_virtual/models/cart_product.dart';
 
 import 'cart_manager.dart';
 
+enum Status { canceled, preparing, transporting, delivered }
+
 class Order {
+
+  //Mandando o produto no firebase
   Order.fromCartManager(CartManager cartManager) {
     items = List.from(cartManager.items);
     price = cartManager.totalPrice;
     userId = cartManager.user.id;
     address = cartManager.address;
+    status = Status.preparing;
   }
 
 //Buscando os pedidos no firebase
@@ -19,7 +24,6 @@ class Order {
     items = (doc.data['items'] as List<dynamic>).map((e) {
       return CartProduct.fromMap(e as Map<String, dynamic>);
     }).toList();
-
 
     price = doc.data['price'] as num;
     userId = doc.data['user'] as String;
@@ -48,9 +52,11 @@ class Order {
 
   Address address;
 
+  Status status;
+
   Timestamp date;
 
-  String get formattedId => '#${orderId.padLeft(6,'0')}';
+  String get formattedId => '#${orderId.padLeft(6, '0')}';
 
   @override
   String toString() {
