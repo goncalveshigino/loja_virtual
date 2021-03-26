@@ -59,19 +59,41 @@ class OrderTile extends StatelessWidget {
                 return OrderProductTile(e);
              }).toList(),
           ),
-
+          
+        if(showControllers && order.status != Status.canceled)
           SizedBox(
             height: 50,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: <Widget>[
+
                 FlatButton(
                   onPressed: (){
 
                   },
                   textColor: Colors.red,
                   child: const Text('Cancelar'),
-                )
+                ),
+
+                FlatButton(
+                  onPressed: order.back,
+                 
+                  child: const Text('Recuar'),
+                ),
+
+                FlatButton(
+                  onPressed: order.advance,
+               
+                  child: const Text('Avançar'),
+                ),
+
+                FlatButton(
+                  onPressed: (){
+
+                  },
+                  textColor: primaryColor,
+                  child: const Text('Endereço'),
+                ),
               ],
             ),
           )

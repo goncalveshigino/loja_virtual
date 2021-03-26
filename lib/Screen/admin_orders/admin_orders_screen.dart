@@ -11,7 +11,7 @@ class AdminOrdersScreen  extends StatelessWidget {
     return Scaffold(
     drawer: CustomDrawer(),
       appBar: AppBar(
-        title: const Text('Meus Pedidos'),
+        title: const Text('Todos os Pedidos'),
         centerTitle: true,
       ),
       body: Consumer<AdminOrdersManager>(
