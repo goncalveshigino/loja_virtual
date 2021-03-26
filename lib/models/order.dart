@@ -68,6 +68,12 @@ class Order {
     }: null;
   }
 
+
+  void updateFromDocument(DocumentSnapshot doc){
+    
+      status = Status.values[doc.data['status'] as int];
+  }
+
   String orderId;
 
   List<CartProduct> items;
