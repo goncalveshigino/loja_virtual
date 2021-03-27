@@ -11,8 +11,16 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 class AdminOrdersScreen extends StatelessWidget {
   final PanelController panelController = PanelController();
 
+
+
   @override
   Widget build(BuildContext context) {
+
+    BorderRadiusGeometry radius = BorderRadius.only(
+        topLeft: Radius.circular(24.0),
+        topRight: Radius.circular(24.0),
+    );
+
     return Scaffold(
       drawer: CustomDrawer(),
       appBar: AppBar(
@@ -25,6 +33,7 @@ class AdminOrdersScreen extends StatelessWidget {
 
           return SlidingUpPanel(
             controller: panelController,
+            
             body: Column(
               children: [
                 if (adminOrderManager.userFilter != null)
@@ -69,7 +78,8 @@ class AdminOrdersScreen extends StatelessWidget {
                         );
                       },
                     ),
-                  )
+                  ),
+                  const SizedBox( height: 120,)
               ],
             ),
             minHeight: 40,
@@ -84,6 +94,7 @@ class AdminOrdersScreen extends StatelessWidget {
                       panelController.close();
                     }
                   },
+
                   child: Container(
                     height: 40,
                     color: Colors.white,
@@ -97,6 +108,7 @@ class AdminOrdersScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                
                 Expanded(
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -104,13 +116,21 @@ class AdminOrdersScreen extends StatelessWidget {
                         return CheckboxListTile(
                           title: Text(Order.getStatusText(s)),
                           dense: true,
-                          value: true,
-                          onChanged: (v) {},
+                          activeColor: Theme.of(context).primaryColor,
+                          value: adminOrderManager.statusFilters.contains(s),
+                          onChanged: (v) {
+                            
+                             adminOrderManager.setStatusFilter(
+                               status: s,
+                               enabled: v
+                             );
+                          },
                         );
                       }).toList()),
                 )
               ],
             ),
+            
           );
         },
       ),
