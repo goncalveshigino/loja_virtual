@@ -3,7 +3,9 @@
 import 'package:alphabet_list_scroll_view/alphabet_list_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
+import 'package:loja_virtual/models/admin_orders_manager.dart';
 import 'package:loja_virtual/models/admin_user_manager.dart';
+import 'package:loja_virtual/models/page_Manager.dart';
 import 'package:provider/provider.dart';
 
 class  AdminUserScreen extends StatelessWidget {
@@ -33,6 +35,12 @@ class  AdminUserScreen extends StatelessWidget {
                      color:Colors.white
                    ),
                  ),
+                 onTap: (){
+                   context.read<AdminOrdersManager>().setUserFilter(
+                       adminUserManager.users[index]
+                   );
+                   context.read<PageManager>().setPage(5);
+                 },
                );
             },
             highlightTextStyle: TextStyle(
