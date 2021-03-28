@@ -3,6 +3,7 @@ import 'package:loja_virtual/common/order/order_product_tile.dart';
 import 'package:loja_virtual/models/order.dart';
 
 import 'cancel_order_dialog.dart';
+import 'export_address_dialog.dart';
 
 class OrderTile extends StatelessWidget {
 
@@ -92,7 +93,9 @@ class OrderTile extends StatelessWidget {
 
                 FlatButton(
                   onPressed: (){
-
+                     showDialog(context: context,
+                      builder: (_) => ExportAddressDialog(order.address)
+                    );
                   },
                   textColor: primaryColor,
                   child: const Text('Endereço'),
