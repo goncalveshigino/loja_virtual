@@ -8,10 +8,15 @@ import 'package:loja_virtual/models/order.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-class AdminOrdersScreen extends StatelessWidget {
+class AdminOrdersScreen extends StatefulWidget {
+
+  @override
+  _AdminOrdersScreenState createState() => _AdminOrdersScreenState();
+}
+
+class _AdminOrdersScreenState extends State<AdminOrdersScreen> {
+  
   final PanelController panelController = PanelController();
-
-
 
   @override
   Widget build(BuildContext context) {
