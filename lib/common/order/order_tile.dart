@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:loja_virtual/common/order/order_product_tile.dart';
 import 'package:loja_virtual/models/order.dart';
 
+import 'cancel_order_dialog.dart';
+
 class OrderTile extends StatelessWidget {
 
   const OrderTile(this.order, {this.showControllers = false});
@@ -68,7 +70,10 @@ class OrderTile extends StatelessWidget {
               children: <Widget>[
 
                 FlatButton(
-                  onPressed: order.cancel,
+                  onPressed: (){
+                    showDialog(context: context, builder: (_) => CancelOrderDialog(order)
+                    );
+                  },
                   textColor: Colors.red,
                   child: const Text('Cancelar'),
                 ),

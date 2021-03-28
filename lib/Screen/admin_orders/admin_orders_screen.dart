@@ -16,10 +16,6 @@ class AdminOrdersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    BorderRadiusGeometry radius = BorderRadius.only(
-        topLeft: Radius.circular(24.0),
-        topRight: Radius.circular(24.0),
-    );
 
     return Scaffold(
       drawer: CustomDrawer(),
@@ -79,7 +75,7 @@ class AdminOrdersScreen extends StatelessWidget {
                       },
                     ),
                   ),
-                  const SizedBox( height: 120,)
+                  const SizedBox( height: 120.0),
               ],
             ),
             minHeight: 40,
