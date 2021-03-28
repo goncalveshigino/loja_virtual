@@ -47,5 +47,6 @@
 	<string>Acessar Camera para adicionar imagem</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Acessar microphone para captar audio</string>
+
 </dict>
 </plist>
