@@ -8,16 +8,18 @@ import 'package:uuid/uuid.dart';
 import 'item_size.dart';
 
 class Product extends ChangeNotifier {
-  Product({this.id, this.name, this.description, this.images, this.sizes}) {
+  Product({this.id, this.name, this.description, this.images, this.sizes, this.deleted}) {
     images = images ?? [];
     sizes = sizes ?? [];
   }
 
+  //Ler dados no firebase
   Product.fromDocument(DocumentSnapshot document) {
     id = document.documentID;
     name = document['name'] as String;
     description = document['description'] as String;
     images = List<String>.from(document.data['images'] as List<dynamic>);
+    deleted = (document.data['deleted'] ?? false) as bool;
     sizes = (document.data['sizes'] as List<dynamic> ?? [])
         .map((s) => ItemSize.fromMap(s as Map<String, dynamic>))
         .toList();
@@ -38,6 +40,8 @@ class Product extends ChangeNotifier {
   List<ItemSize> sizes;
 
   List<dynamic> newImages;
+
+  bool deleted;
 
   bool _loading = false;
   bool get loading => _loading;
@@ -94,7 +98,8 @@ class Product extends ChangeNotifier {
     final Map<String, dynamic> data = {
       'name': name,
       'description': description,
-      'sizes': exportSizeList()
+      'sizes': exportSizeList(),
+      'deleted': deleted
     };
     // Criar se for nulo ou atualizar se ja existir na base de dados
     if (id == null) {
@@ -150,7 +155,12 @@ class Product extends ChangeNotifier {
       description: description,
       images: List.from(images),
       sizes: sizes.map((size) => size.clone()).toList(),
+      deleted: deleted
     );
+  }
+
+  void delete() {
+    firestoreRef.updateData({'deleted': true});
   }
 
   @override
