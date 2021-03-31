@@ -82,12 +82,17 @@ class Section extends ChangeNotifier {
     }
 
     for (final original in originalItem) {
-      if (!items.contains(original)) {
+      if (!items.contains(original) 
+           && (original.image as String).contains('firebase')) {
         try {
           final ref =
-              await storage.getReferenceFromUrl(original.image as String);
+              await storage.getReferenceFromUrl(
+                original.image as String
+            );
           await ref.delete();
-        } catch (e) {}
+        } catch (e) {
+
+        }
       }
     }
 
@@ -103,12 +108,18 @@ class Section extends ChangeNotifier {
 
     await firestoreRef.delete();
     for(final item in items){
-     try {
-      final ref = await storage.getReferenceFromUrl(item.image as String);
-      await ref.delete();
+      if((item.image as String).contains('firebase')){
+
+      try {
+
+        final ref = await storage.getReferenceFromUrl(item.image as String);
+        await ref.delete();
+        
       //Ignore: empty_catches
      } catch (e) {
-     }
+
+        }
+      }
     }
   }
 
