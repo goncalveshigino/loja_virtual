@@ -78,7 +78,6 @@ class ProductsScreen extends StatelessWidget {
                       onPressed: (){
                         Navigator.of(context).pushNamed(
                           '/edit_product',
-                     
                         );
                       },
                     );
@@ -93,7 +92,6 @@ class ProductsScreen extends StatelessWidget {
         builder: (_, productManager, __) {
           final filteredProducts = productManager.filteredProducts;
           return ListView.builder(
-            padding: const EdgeInsets.all(6),
             itemCount: filteredProducts.length,
             itemBuilder: (_, index) {
               return ProductListTile(filteredProducts[index]);
