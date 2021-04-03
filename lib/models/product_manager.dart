@@ -36,6 +36,7 @@ class ProductManager extends ChangeNotifier {
   }
 ////fim da pesquisa
 
+// Para carregar todos o produtos do firebase
   Future<void> _loadAllProducts() async {
     final QuerySnapshot snapshotProducts =
         await firestore.collection('products')
