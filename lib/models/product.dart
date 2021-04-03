@@ -8,7 +8,7 @@ import 'package:uuid/uuid.dart';
 import 'item_size.dart';
 
 class Product extends ChangeNotifier {
-  Product({this.id, this.name, this.description, this.images, this.sizes, this.deleted}) {
+  Product({this.id, this.name, this.description, this.images, this.sizes, this.deleted = false}) {
     images = images ?? [];
     sizes = sizes ?? [];
   }
@@ -66,7 +66,7 @@ class Product extends ChangeNotifier {
   }
 
   bool get hasStock {
-    return totalStock > 0;
+    return totalStock > 0 && !deleted;
   }
 
 // Procurar o menor preco possivel
