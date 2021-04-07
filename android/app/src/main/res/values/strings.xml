@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="uft-8"?>
+
+<resources>
+
+     <string name="app_name">Loja Virtual</string>
+
+    <string name="facebook_app_id">198646098437128</string>
+
+   
+    <string name="fb_login_protocol_scheme">fb198646098437128</string>
+
+</resources>
