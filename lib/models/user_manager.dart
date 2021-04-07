@@ -56,6 +56,11 @@ class UserManager extends ChangeNotifier {
     loading = false;
   }
 
+
+  void facebookLogin(){
+    
+  }
+
   void signOut() {
     auth.signOut();
     
