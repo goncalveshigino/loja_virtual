@@ -19,6 +19,17 @@ class UserManager extends ChangeNotifier {
 
   bool _loading = false;
   bool get loading => _loading;
+  set loading(bool value) {
+    _loading = value;
+    notifyListeners();
+  }
+
+  bool _loadingFace = false;
+  bool get loadingFace => _loadingFace;
+  set loadingFace(bool value) {
+    _loadingFace = value;
+    notifyListeners();
+  }
 
   bool get isLoggedIn => user != null;
 
@@ -57,57 +68,46 @@ class UserManager extends ChangeNotifier {
     loading = false;
   }
 
-
   Future<void> facebookLogin({Function onFail, Function onSuccess}) async {
-
-    loading = true;
+    loadingFace = true;
 
     final result = await FacebookLogin().logIn(['phone', 'public_profile']);
 
-      switch (result.status) {
+    switch (result.status) {
+      case FacebookLoginStatus.loggedIn:
+        final credential = FacebookAuthProvider.getCredential(
+            accessToken: result.accessToken.token);
 
-        case FacebookLoginStatus.loggedIn:
+        final authResult = await auth.signInWithCredential(credential);
 
-          final credential = FacebookAuthProvider.getCredential(
-             accessToken: result.accessToken.token
-          );
+        if (authResult.user != null) {
+          final firebaseUser = authResult.user;
 
-          final authResult = await auth.signInWithCredential(credential);
+          user = User(
+              id: firebaseUser.uid,
+              name: firebaseUser.displayName,
+              email: firebaseUser.email);
 
-          if(authResult.user != null){
-             final firebaseUser = authResult.user;
+          await user.saveData();
 
-             user = User(
-               id: firebaseUser.uid,
-               name: firebaseUser.displayName,
-               email: firebaseUser.email
-             );
+          onSuccess();
+        }
 
-             await user.saveData();
+        break;
+      case FacebookLoginStatus.cancelledByUser:
+        break;
+      case FacebookLoginStatus.error:
+        onFail(result.errorMessage);
+        break;
+    }
 
-             onSuccess();
-          }
-
-          break;
-        case FacebookLoginStatus.cancelledByUser:
-          break;
-        case FacebookLoginStatus.error:
-          onFail(result.errorMessage);
-          break;
-      }
-
-      loading = false;
+    loadingFace = false;
   }
 
   void signOut() {
     auth.signOut();
-    
-    user = null;
-    notifyListeners();
-  }
 
-  set loading(bool value) {
-    _loading = value;
+    user = null;
     notifyListeners();
   }
 
@@ -115,14 +115,13 @@ class UserManager extends ChangeNotifier {
   Future<void> _loadCurrentUser({FirebaseUser firebaseUser}) async {
     final FirebaseUser currentUser = firebaseUser ?? await auth.currentUser();
     if (currentUser != null) {
-      
       final DocumentSnapshot docUser =
           await firestore.collection('users').document(currentUser.uid).get();
       user = User.fromDocument(docUser);
 
-  
-    final docAdmin = await firestore.collection('admins').document(user.id).get();
-      if(docAdmin.exists){
+      final docAdmin =
+          await firestore.collection('admins').document(user.id).get();
+      if (docAdmin.exists) {
         user.admin = true;
       }
       notifyListeners();
