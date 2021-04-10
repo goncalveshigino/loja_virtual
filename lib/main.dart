@@ -5,6 +5,7 @@ import 'package:loja_virtual/Screen/edit_product/edit_product_screen.dart';
 import 'package:loja_virtual/Screen/select_product/select_product_screen.dart';
 
 import 'package:loja_virtual/Screen/signup/signup_screen.dart';
+import 'package:loja_virtual/models/stores/stores_manager.dart';
 import 'package:loja_virtual/models/user/admin_orders_manager.dart';
 import 'package:loja_virtual/models/user/admin_user_manager.dart';
 import 'package:provider/provider.dart';
@@ -53,6 +54,10 @@ class MyApp extends StatelessWidget {
           lazy: false,
           update: (_, userManager, cartManager) =>
               cartManager..updateUser(userManager),
+        ),
+
+        ChangeNotifierProvider(
+          create: (_) => StoresManager(),
         ),
 
 
