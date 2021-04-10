@@ -12,7 +12,7 @@ class StoresManager extends ChangeNotifier {
   Future<void> _loadStoreList() async {
     final snapshot = await firestore.collection('stores').getDocuments();
 
-    print(snapshot);
+    print(snapshot.documents.first.data);
 
     notifyListeners();
   }
