@@ -5,10 +5,8 @@ import 'package:loja_virtual/Screen/edit_product/edit_product_screen.dart';
 import 'package:loja_virtual/Screen/select_product/select_product_screen.dart';
 
 import 'package:loja_virtual/Screen/signup/signup_screen.dart';
-import 'package:loja_virtual/models/admin_orders_manager.dart';
-import 'package:loja_virtual/models/admin_user_manager.dart';
-import 'package:loja_virtual/models/order.dart';
-import 'package:loja_virtual/models/user_manager.dart';
+import 'package:loja_virtual/models/user/admin_orders_manager.dart';
+import 'package:loja_virtual/models/user/admin_user_manager.dart';
 import 'package:provider/provider.dart';
 
 import 'Screen/base/base_screen.dart';
@@ -16,11 +14,13 @@ import 'Screen/cart/cart_screen.dart';
 import 'Screen/confirmation/confirmation.dart';
 import 'Screen/login/login_screen.dart';
 import 'Screen/product/product_tela.dart';
-import 'models/cart_manager.dart';
-import 'models/home_manager.dart';
-import 'models/orders_manager.dart';
-import 'models/product.dart';
-import 'models/product_manager.dart';
+import 'models/cart/cart_manager.dart';
+import 'models/home/home_manager.dart';
+import 'models/order/order.dart';
+import 'models/order/orders_manager.dart';
+import 'models/product/product.dart';
+import 'models/product/product_manager.dart';
+import 'models/user/user_manager.dart';
 
 void main() {
   runApp(MyApp());

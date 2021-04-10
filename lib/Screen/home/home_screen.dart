@@ -3,8 +3,8 @@ import 'package:loja_virtual/Screen/home/components/add_section_widget.dart';
 import 'package:loja_virtual/Screen/home/components/sectionStaggered.dart';
 import 'package:loja_virtual/Screen/home/components/section_list.dart';
 import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
-import 'package:loja_virtual/models/home_manager.dart';
-import 'package:loja_virtual/models/user_manager.dart';
+import 'package:loja_virtual/models/home/home_manager.dart';
+import 'package:loja_virtual/models/user/user_manager.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {

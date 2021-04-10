@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:loja_virtual/models/item_size.dart';
-import 'package:loja_virtual/models/product.dart';
+import 'package:loja_virtual/models/product/item_size.dart';
+import 'package:loja_virtual/models/product/product.dart';
 
 import 'package:provider/provider.dart';
 

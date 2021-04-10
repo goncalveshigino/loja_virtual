@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/Screen/home/components/item_tile.dart';
 import 'package:loja_virtual/Screen/home/components/section_header.dart';
-import 'package:loja_virtual/models/home_manager.dart';
-import 'package:loja_virtual/models/section.dart';
+import 'package:loja_virtual/models/home/home_manager.dart';
+import 'package:loja_virtual/models/home/section.dart';
 import 'package:provider/provider.dart';
 
 import 'add_tile_widget.dart';

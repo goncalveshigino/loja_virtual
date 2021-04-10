@@ -1,7 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:loja_virtual/models/product.dart';
+import 'package:loja_virtual/models/product/product.dart';
+
 
 
 class ProductListTile extends StatelessWidget {

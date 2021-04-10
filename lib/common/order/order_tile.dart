@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/common/order/order_product_tile.dart';
-import 'package:loja_virtual/models/order.dart';
+import 'package:loja_virtual/models/order/order.dart';
 
 import 'cancel_order_dialog.dart';
 import 'export_address_dialog.dart';

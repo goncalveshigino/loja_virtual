@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/common/order/order_product_tile.dart';
-import 'package:loja_virtual/models/order.dart';
+import 'package:loja_virtual/models/order/order.dart';
 
 class ConfirmationScreen extends StatelessWidget {
 

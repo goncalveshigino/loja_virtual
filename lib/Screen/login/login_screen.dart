@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:loja_virtual/common/helpers/validators.dart';
-import 'package:loja_virtual/models/user.dart';
-import 'package:loja_virtual/models/user_manager.dart';
+import 'package:loja_virtual/models/user/user.dart';
+import 'package:loja_virtual/models/user/user_manager.dart';
+
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {

@@ -4,7 +4,7 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/Screen/edit_product/components/ImageSourceSheet.dart';
-import 'package:loja_virtual/models/product.dart';
+import 'package:loja_virtual/models/product/product.dart';
 
 
 class ImagesForm extends StatelessWidget {

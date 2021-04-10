@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/common/custom_icon_button.dart';
-import 'package:loja_virtual/models/cart_product.dart';
+import 'package:loja_virtual/models/cart/cart_product.dart';
 
 import 'package:provider/provider.dart';
 

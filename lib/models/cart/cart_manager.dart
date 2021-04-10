@@ -1,14 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:loja_virtual/models/address.dart';
+import 'package:loja_virtual/models/product/product.dart';
+import 'package:loja_virtual/models/user/address.dart';
+import 'package:loja_virtual/models/user/user.dart';
+import 'package:loja_virtual/models/user/user_manager.dart';
 
-import 'package:loja_virtual/models/user_manager.dart';
+
 import 'package:loja_virtual/services/cepaberto_service.dart';
 
-import 'cart_product.dart';
-import 'product.dart';
-import 'user.dart';
+import '../cart/cart_product.dart';
+
+
 
 class CartManager extends ChangeNotifier {
   List<CartProduct> items = [];

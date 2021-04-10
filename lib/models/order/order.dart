@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:loja_virtual/models/address.dart';
-import 'package:loja_virtual/models/cart_product.dart';
+import 'package:loja_virtual/models/cart/cart_manager.dart';
+import 'package:loja_virtual/models/user/address.dart';
+import 'package:loja_virtual/models/cart/cart_product.dart';
 
-import 'cart_manager.dart';
+
 
 enum Status { canceled, preparing, transporting, delivered }
 
