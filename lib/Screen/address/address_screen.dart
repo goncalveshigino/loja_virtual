@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/Screen/address/components/address_card.dart';
 import 'package:loja_virtual/common/price_card.dart';
-import 'package:loja_virtual/models/cart_manager.dart';
+import 'package:loja_virtual/models/cart/cart_manager.dart';
 import 'package:provider/provider.dart';
 
 class AddressScreen extends StatelessWidget {

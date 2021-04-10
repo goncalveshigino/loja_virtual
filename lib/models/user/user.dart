@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:loja_virtual/models/address.dart';
+import 'package:loja_virtual/models/user/address.dart';
 
 class User {
   User({this.email, this.password, this.name, this.id});

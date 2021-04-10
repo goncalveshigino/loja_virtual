@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/common/price_card.dart';
-import 'package:loja_virtual/models/cart_manager.dart';
+import 'package:loja_virtual/models/cart/cart_manager.dart';
 import 'package:loja_virtual/models/checkout_manager.dart';
 
 

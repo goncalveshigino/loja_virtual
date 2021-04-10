@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/Screen/edit_product/components/ImageSourceSheet.dart';
-import 'package:loja_virtual/models/section.dart';
-import 'package:loja_virtual/models/section_item.dart';
+import 'package:loja_virtual/models/home/section.dart';
+import 'package:loja_virtual/models/home/section_item.dart';
 import 'package:provider/provider.dart';
 
 

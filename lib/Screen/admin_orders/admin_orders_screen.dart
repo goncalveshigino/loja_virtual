@@ -3,8 +3,9 @@ import 'package:loja_virtual/common/custom_icon_button.dart';
 import 'package:loja_virtual/common/order/order_tile.dart';
 import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
 import 'package:loja_virtual/common/custom_drawer/empty_card.dart';
-import 'package:loja_virtual/models/admin_orders_manager.dart';
-import 'package:loja_virtual/models/order.dart';
+import 'package:loja_virtual/models/order/order.dart';
+import 'package:loja_virtual/models/user/admin_orders_manager.dart';
+
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 

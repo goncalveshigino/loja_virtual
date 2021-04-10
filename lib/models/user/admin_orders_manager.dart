@@ -4,9 +4,10 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:loja_virtual/models/user.dart';
+import 'package:loja_virtual/models/order/order.dart';
 
-import 'order.dart';
+
+import 'user.dart';
 
 class AdminOrdersManager extends ChangeNotifier {
    

@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:loja_virtual/models/cart_manager.dart';
+import 'package:loja_virtual/models/cart/cart_manager.dart';
 
-import 'package:loja_virtual/models/order.dart';
-import 'package:loja_virtual/models/product.dart';
+import 'package:loja_virtual/models/order/order.dart';
+
+import 'product/product.dart';
+
 
 class CheckoutManager extends ChangeNotifier {
   CartManager cartManager;

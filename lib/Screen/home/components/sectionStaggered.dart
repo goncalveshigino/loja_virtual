@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:loja_virtual/Screen/home/components/add_tile_widget.dart';
 import 'package:loja_virtual/Screen/home/components/item_tile.dart';
-import 'package:loja_virtual/models/home_manager.dart';
-import 'package:loja_virtual/models/section.dart';
+import 'package:loja_virtual/models/home/home_manager.dart';
+import 'package:loja_virtual/models/home/section.dart';
 import 'package:provider/provider.dart';
 
 

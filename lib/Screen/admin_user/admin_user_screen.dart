@@ -3,8 +3,8 @@
 import 'package:alphabet_list_scroll_view/alphabet_list_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/common/custom_drawer/custom_drawer.dart';
-import 'package:loja_virtual/models/admin_orders_manager.dart';
-import 'package:loja_virtual/models/admin_user_manager.dart';
+import 'package:loja_virtual/models/user/admin_orders_manager.dart';
+import 'package:loja_virtual/models/user/admin_user_manager.dart';
 import 'package:loja_virtual/models/page_Manager.dart';
 import 'package:provider/provider.dart';
 
