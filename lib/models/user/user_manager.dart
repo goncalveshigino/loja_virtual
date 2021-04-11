@@ -3,7 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:loja_virtual/common/helpers/firebase_errors.dart';
+import 'package:loja_virtual/helpers/firebase_errors.dart';
+
 
 import 'user.dart';
 
