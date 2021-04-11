@@ -21,7 +21,7 @@ class StoreCard extends StatelessWidget {
         case StoreStatus.open:
           return Colors.green;
         case StoreStatus.closing:
-          return Colors.yellow;
+          return Colors.orange;
         default:
          return Colors.green;
       }
@@ -33,30 +33,34 @@ class StoreCard extends StatelessWidget {
        //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
        child: Column(
          children: [
-           Stack(
-             children: [
-                Image.network(store.image),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Container(
-                   decoration: BoxDecoration(
-                     color: Colors.white,
-                     borderRadius: const BorderRadius.only(
-                       bottomLeft: Radius.circular(8)
-                     )
-                   ),
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      store.statusText,
-                      style: TextStyle(
-                        color: colorForStatus(store.status),
-                        fontWeight: FontWeight.w800,
-                        fontSize: 16
+           Container(
+             height: 160,
+             child: Stack(
+               fit: StackFit.expand,
+               children: [
+                  Image.network(store.image, fit: BoxFit.cover,),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Container(
+                     decoration: BoxDecoration(
+                       color: Colors.white,
+                       borderRadius: const BorderRadius.only(
+                         bottomLeft: Radius.circular(8)
+                       )
+                     ),
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        store.statusText,
+                        style: TextStyle(
+                          color: colorForStatus(store.status),
+                          fontWeight: FontWeight.w800,
+                          fontSize: 16
+                        ),
                       ),
                     ),
-                  ),
-                )
-             ],
+                  )
+               ],
+             ),
            ),
            Container(
              height: 140,
