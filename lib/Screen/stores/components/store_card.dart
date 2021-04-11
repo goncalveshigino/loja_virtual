@@ -14,11 +14,50 @@ class StoreCard extends StatelessWidget {
 
     final primaryColor = Theme.of(context).primaryColor;
 
+    Color colorForStatus(StoreStatus status){
+      switch (status) {
+        case StoreStatus.closed:
+          return Colors.red;
+        case StoreStatus.open:
+          return Colors.green;
+        case StoreStatus.closing:
+          return Colors.yellow;
+        default:
+         return Colors.green;
+      }
+    }
+
     return Card(
        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+       clipBehavior: Clip.antiAlias,
+       //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
        child: Column(
          children: [
-           Image.network(store.image),
+           Stack(
+             children: [
+                Image.network(store.image),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                   decoration: BoxDecoration(
+                     color: Colors.white,
+                     borderRadius: const BorderRadius.only(
+                       bottomLeft: Radius.circular(8)
+                     )
+                   ),
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      store.statusText,
+                      style: TextStyle(
+                        color: colorForStatus(store.status),
+                        fontWeight: FontWeight.w800,
+                        fontSize: 16
+                      ),
+                    ),
+                  ),
+                )
+             ],
+           ),
            Container(
              height: 140,
              padding: const EdgeInsets.all(16),
