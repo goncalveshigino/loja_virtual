@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loja_virtual/common/helpers/validators.dart';
+import 'package:loja_virtual/helpers/validators.dart';
 import 'package:loja_virtual/models/user/user.dart';
 import 'package:loja_virtual/models/user/user_manager.dart';
 
