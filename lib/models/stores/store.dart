@@ -84,7 +84,18 @@ class Store {
     } else {
       status = StoreStatus.closed;
     }
+  }
 
-    print(status);
+  String get statusText {
+    switch (status) {
+      case StoreStatus.closed:
+        return 'Fechada';
+      case StoreStatus.open:
+        return 'Aberta';
+      case StoreStatus.closing:
+        return 'Fechando';
+      default:
+        return '';
+    }
   }
 }
