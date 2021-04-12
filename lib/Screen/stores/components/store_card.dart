@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/common/custom_icon_button.dart';
 import 'package:loja_virtual/models/stores/store.dart';
+import 'package:loja_virtual/models/user/user_manager.dart';
 
 class StoreCard extends StatelessWidget {
 
@@ -26,7 +27,7 @@ class StoreCard extends StatelessWidget {
          return Colors.green;
       }
     }
-
+   
     return Card(
        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
        clipBehavior: Clip.antiAlias,
