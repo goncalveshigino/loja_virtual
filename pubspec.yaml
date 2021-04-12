@@ -50,6 +50,7 @@ dependencies:
   flutter_facebook_login: ^3.0.0
   flutter_signin_button: ^1.0.0
   flip_card: ^0.4.4
+  mask_text_input_formatter: ^1.0.7
 
 dev_dependencies:
   flutter_test:

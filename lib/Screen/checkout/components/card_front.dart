@@ -1,8 +1,16 @@
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import 'card_text_field.dart';
 
 class CardFront extends StatelessWidget {
+
+ final MaskTextInputFormatter dateFormatter = MaskTextInputFormatter(
+      mask: '!#/####', filter: {'#': RegExp('[0-9]'), '!': RegExp('[0-1]')}
+ );
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -24,11 +32,16 @@ class CardFront extends StatelessWidget {
                       hint: '0000 0000 0000 0000',
                       textInputType: TextInputType.number,
                       bold: true,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        CartaoBancarioInputFormatter()
+                      ],
                     ),
                      CardTextField(
                       title: 'Validade',
                       hint: '04/2020',
                       textInputType: TextInputType.number,
+                      inputFormatters: [ dateFormatter],
                     ),
                      CardTextField(
                       title: 'Título',
@@ -41,13 +54,14 @@ class CardFront extends StatelessWidget {
             ),
             Stack(
               children: [
-                Icon(
-                  Icons.credit_card,
-                  color: Colors.white,
-                  size: 44,
-                ),
+      
                 Align(
                   alignment: Alignment.topRight,
+                    child: Icon(
+                      Icons.credit_card,
+                      color: Colors.white,
+                      size: 44,
+                    ),
                 )
               ],
             )
