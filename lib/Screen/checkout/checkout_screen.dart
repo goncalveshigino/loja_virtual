@@ -9,6 +9,9 @@ import 'package:provider/provider.dart';
 import 'components/crediti_card.dart';
 
 class CheckoutScreen extends StatelessWidget {
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -48,27 +51,38 @@ class CheckoutScreen extends StatelessWidget {
                 ),
               );
             }
-            return ListView(
-              children: <Widget>[
-                CreditiCardWidget(),
-                PriceCard(
-                  buttonText: 'Finalizar Pedido',
-                  onPressed: () {
-                    checkoutManager.checkout(onStockFail: (e) {
-                      Navigator.of(context)
-                          .popUntil((route) => route.settings.name == '/cart');
-                    },
-                    onSuccess: (order) {
-                      Navigator.of(context)
-                          .popUntil((route) => route.settings.name == '/');
-                        Navigator.of(context).pushNamed('/confirmation', arguments: order);
+            return Form(
+              key: formKey,
+              child: ListView(
+                children: <Widget>[
+                  CreditiCardWidget(),
+                  PriceCard(
+                    buttonText: 'Finalizar Pedido',
+                    onPressed: () {
+
+                        if(formKey.currentState.validate()){
+
+                          print('Enviar pedido');
+
+                          // checkoutManager.checkout(onStockFail: (e) {
+                          //   Navigator.of(context)
+                          //       .popUntil((route) => route.settings.name == '/cart');
+                          // },
+                          // onSuccess: (order) {
+                          //   Navigator.of(context)
+                          //       .popUntil((route) => route.settings.name == '/');
+                          //     Navigator.of(context).pushNamed('/confirmation', arguments: order);
+                          
+                          //   }
+                          
+                          // );
+                        }
+
                      
-                       }
-                    
-                    );
-                  },
-                )
-              ],
+                    },
+                  )
+                ],
+              ),
             );
           },
         ),

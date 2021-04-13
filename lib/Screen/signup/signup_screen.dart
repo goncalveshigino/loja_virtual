@@ -104,11 +104,13 @@ class SignUpScreen extends StatelessWidget {
                           formkey.currentState.save();
 
                           if (user.password != user.confirmarPassword) {
-                            scaffoldkey.currentState.showSnackBar(
-                              const SnackBar(
-                              content: const Text('Senhas não coincidem!'),
-                              backgroundColor: Colors.red,
-                            ));
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                   content:  Text('Senhas não coincidem!'),
+                                   backgroundColor: Colors.red,
+                                ),
+                              );
                             return;
                           }
 
@@ -118,12 +120,12 @@ class SignUpScreen extends StatelessWidget {
                                Navigator.of(context).pop();
                               },
                               onFAil: (e) {
-                                scaffoldkey.currentState
-                                    .showSnackBar( SnackBar(
-                                  content: Text('Falha ao cadastrar: $e'),
-                                  backgroundColor: Colors.red,
-                                 )
-                                );
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content:  Text('Falha ao Entrar $e'),
+                                      backgroundColor: Colors.red,
+                                    ),
+                              );
                                 return;
                               });
                         }

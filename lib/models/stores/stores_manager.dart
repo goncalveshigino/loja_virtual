@@ -5,8 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:loja_virtual/models/stores/store.dart';
 
 class StoresManager extends ChangeNotifier {
-
-  StoresManager(){
+  StoresManager() {
     _loadStoreList();
   }
 
@@ -19,21 +18,21 @@ class StoresManager extends ChangeNotifier {
   Future<void> _loadStoreList() async {
     final snapshot = await firestore.collection('stores').getDocuments();
 
-  stores = snapshot.documents.map((e) => Store.fromDocument(e)).toList();
-  
+    stores = snapshot.documents.map((e) => Store.fromDocument(e)).toList();
+
     notifyListeners();
+    _startTimer();
   }
 
-  void _startTimer(){
-   _timer = Timer.periodic(const Duration(minutes: 1), (timer){
-       _checkOpeninh();
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(minutes: 1), (timer) {
+      _checkOpeninh();
     });
   }
 
-  void _checkOpeninh(){
-    for(final store in stores)
-       store.updateStatus();
-     notifyListeners();
+  void _checkOpeninh() {
+    for (final store in stores) store.updateStatus();
+    notifyListeners();
   }
 
   @override

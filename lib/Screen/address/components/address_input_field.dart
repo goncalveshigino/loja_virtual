@@ -143,11 +143,10 @@ class AddressInputField extends StatelessWidget {
                 try {
                   await context.read<CartManager>().setAddress(address);
                 } catch (e) {
-                  Scaffold.of(context).showSnackBar(SnackBar(
-                    content: Text('$e'),
-                    backgroundColor: Colors.red,
-                  )
-                  );
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar( content:  Text('$e'), backgroundColor: Colors.red,),
+                   );
                 }
 
               }
