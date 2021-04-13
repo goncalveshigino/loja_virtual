@@ -13,14 +13,12 @@ class LoginScreen extends StatelessWidget {
 
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
-  // Para abrir um snakBar
-  final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
+
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-      key: scaffoldkey,
       appBar: AppBar(
         title: const Text('Entrar'),
         centerTitle: true,
@@ -106,12 +104,12 @@ class LoginScreen extends StatelessWidget {
                                           password: passController.text
                                      ),
                                       onFail: (e) {
-                                        scaffoldkey.currentState
-                                            .showSnackBar(
-                                          SnackBar(
-                                             content: Text('Falha ao entrar: $e'),
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar( 
+                                              content:  Text('Falha ao Entrar '),
                                               backgroundColor: Colors.red,
-                                        ));
+                                            ),
+                                        );
                                       },
                                       onSucess: () {
                                         Navigator.of(context).pop();
@@ -140,13 +138,15 @@ class LoginScreen extends StatelessWidget {
                         onPressed: (){
                           userManager.facebookLogin(
                           onFail: (e) {
-                            scaffoldkey.currentState.showSnackBar(
-                              SnackBar(
-                                content: Text('Falha ao entrar'),
-                                backgroundColor: Colors.red,
-                              )
+                            
+                          ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar( 
+                                  content:  Text('Falha ao Entrar'),
+                                  backgroundColor: Colors.red,
+                                  ),
                             );
                           },
+                       
                            onSuccess: (){
                             Navigator.of(context).pop();
                            }
