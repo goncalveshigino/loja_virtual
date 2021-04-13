@@ -51,6 +51,7 @@ dependencies:
   flutter_signin_button: ^1.0.0
   flip_card: ^0.4.4
   mask_text_input_formatter: ^1.0.7
+  credit_card_type_detector: ^1.1.0
 
 dev_dependencies:
   flutter_test:
