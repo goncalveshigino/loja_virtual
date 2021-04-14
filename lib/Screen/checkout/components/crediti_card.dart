@@ -4,8 +4,13 @@ import 'package:loja_virtual/Screen/checkout/components/card_back.dart';
 import 'package:loja_virtual/Screen/checkout/components/card_front.dart';
 
 class CreditiCardWidget extends StatelessWidget {
+  final GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
 
- final GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
+  final FocusNode numberFocus = FocusNode();
+  final FocusNode dateFocus = FocusNode();
+  final FocusNode nameFocus = FocusNode();
+  final FocusNode cvvFocus = FocusNode();
+
 
   @override
   Widget build(BuildContext context) {
@@ -16,15 +21,25 @@ class CreditiCardWidget extends StatelessWidget {
         children: [
           FlipCard(
             key: cardKey,
-             direction: FlipDirection.HORIZONTAL,
-             speed: 700,
-             flipOnTouch: false,
-             front: CardFront(),
-             back: CardBack(),
+            direction: FlipDirection.HORIZONTAL,
+            speed: 700,
+            flipOnTouch: false,
+            front: CardFront(
+              numberFocus: numberFocus,
+              dateFocus: dateFocus,
+              nameFocus: nameFocus,
+              finished: (){
+                 cardKey.currentState.toggleCard();
+                 cvvFocus.requestFocus();
+              },
+            ),
+            back: CardBack(
+              cvvFocus: cvvFocus,
+            ),
           ),
           FlatButton(
-            onPressed: (){
-               cardKey.currentState.toggleCard();
+            onPressed: () {
+              cardKey.currentState.toggleCard();
             },
             textColor: Colors.white,
             padding: EdgeInsets.zero,
