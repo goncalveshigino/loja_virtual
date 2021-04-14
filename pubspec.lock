@@ -352,6 +352,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3-nullsafety.2"
+  keyboard_actions:
+    dependency: "direct main"
+    description:
+      name: keyboard_actions
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.3.1+1"
   lint:
     dependency: "direct dev"
     description:
