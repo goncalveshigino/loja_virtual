@@ -27,64 +27,69 @@ class CheckoutScreen extends StatelessWidget {
           title: const Text('Pagamento'),
           centerTitle: true,
         ),
-        body: Consumer<CheckoutManager>(
-          builder: (_, checkoutManager, __) {
-            if (checkoutManager.loading) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+        body: GestureDetector(
+          onTap: (){
+            FocusScope.of(context).unfocus();
+          },
+          child: Consumer<CheckoutManager>(
+            builder: (_, checkoutManager, __) {
+              if (checkoutManager.loading) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(Colors.white),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Text(
+                        'Processando seu Pagamento...',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 16),
+                      )
+                    ],
+                  ),
+                );
+              }
+              return Form(
+                key: formKey,
+                child: ListView(
                   children: <Widget>[
-                    CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation(Colors.white),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Text(
-                      'Processando seu Pagamento...',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 16),
+                    CreditiCardWidget(),
+                    PriceCard(
+                      buttonText: 'Finalizar Pedido',
+                      onPressed: () {
+
+                          if(formKey.currentState.validate()){
+
+                            print('Enviar pedido');
+
+                            // checkoutManager.checkout(onStockFail: (e) {
+                            //   Navigator.of(context)
+                            //       .popUntil((route) => route.settings.name == '/cart');
+                            // },
+                            // onSuccess: (order) {
+                            //   Navigator.of(context)
+                            //       .popUntil((route) => route.settings.name == '/');
+                            //     Navigator.of(context).pushNamed('/confirmation', arguments: order);
+                            
+                            //   }
+                            
+                            // );
+                          }
+
+                       
+                      },
                     )
                   ],
                 ),
               );
-            }
-            return Form(
-              key: formKey,
-              child: ListView(
-                children: <Widget>[
-                  CreditiCardWidget(),
-                  PriceCard(
-                    buttonText: 'Finalizar Pedido',
-                    onPressed: () {
-
-                        if(formKey.currentState.validate()){
-
-                          print('Enviar pedido');
-
-                          // checkoutManager.checkout(onStockFail: (e) {
-                          //   Navigator.of(context)
-                          //       .popUntil((route) => route.settings.name == '/cart');
-                          // },
-                          // onSuccess: (order) {
-                          //   Navigator.of(context)
-                          //       .popUntil((route) => route.settings.name == '/');
-                          //     Navigator.of(context).pushNamed('/confirmation', arguments: order);
-                          
-                          //   }
-                          
-                          // );
-                        }
-
-                     
-                    },
-                  )
-                ],
-              ),
-            );
-          },
+            },
+          ),
         ),
       ),
     );
